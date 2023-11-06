@@ -68,14 +68,14 @@ class SignUpPage : AppCompatActivity() {
                 GlobalScope.launch(Dispatchers.IO) {
                     try {
                         val nickname = binding.signupNickNameEt.text.toString()
-
+                        Log.d("닉네임","눌렸어?")
                         //수정 : 로그인한 사람 닉네임 가져오기
                         val userID_call = RetrofitInstance.search_userID_api.getUserByNickname(Constants.MAIN_APIKEY, nickname)
                         val userID_response = userID_call.execute()
 
                         if (userID_response.isSuccessful) {
                             val gameResponse = userID_response.body()
-
+                            Log.d("닉네임","성공했어?")
                             withContext(Dispatchers.Main) {
                                 if (gameResponse?.user == null) {
                                     binding.signupTvCheckMessage.visibility = View.VISIBLE
@@ -95,7 +95,6 @@ class SignUpPage : AppCompatActivity() {
                                 }
                             }
                             Log.d("닉네임체크",signup_nickname)
-
                         }
 
                     } catch (e: Exception) {
@@ -109,7 +108,7 @@ class SignUpPage : AppCompatActivity() {
 
 
         // 실험체 스피너
-        val characterlist = resources.getStringArray(R.array.character)
+        val characterlist = resources.getStringArray(R.array.characterName)
         val adapter =
             ArrayAdapter<String>(this, R.layout.signup_spinner, R.id.spinner_tv, characterlist)
         var selectCharacter = characterlist[0]
