@@ -1,26 +1,16 @@
 package com.erionna.eternalreturninfo.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import com.erionna.eternalreturninfo.model.BoardModel
 import com.erionna.eternalreturninfo.model.CommentModel
-import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.FBRef
-import com.erionna.eternalreturninfo.ui.activity.MainActivity
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
-import kotlinx.coroutines.CoroutineScope
-import java.util.Calendar
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
 
 class BoardListViewModel() : ViewModel(){
 

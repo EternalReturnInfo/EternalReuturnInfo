@@ -5,7 +5,6 @@ import android.os.Bundle
 import coil.api.load
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.BoardDeletedActivityBinding
-import com.erionna.eternalreturninfo.databinding.BoardSearchActivityBinding
 
 class BoardDeleted : AppCompatActivity() {
 

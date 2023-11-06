@@ -3,9 +3,7 @@ package com.erionna.eternalreturninfo.ui.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.erionna.eternalreturninfo.model.Message
-import java.util.concurrent.atomic.AtomicLong
 
 class ChatViewModel() : ViewModel() {
 

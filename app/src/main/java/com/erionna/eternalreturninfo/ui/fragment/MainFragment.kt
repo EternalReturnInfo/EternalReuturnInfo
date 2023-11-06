@@ -3,35 +3,22 @@ package com.erionna.eternalreturninfo.ui.fragment.main
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.erionna.eternalreturninfo.databinding.MainFragmentBinding
 import com.erionna.eternalreturninfo.model.Notice
 import com.erionna.eternalreturninfo.model.VideoModel
-import com.erionna.eternalreturninfo.retrofit.BoardSingletone
-import com.erionna.eternalreturninfo.retrofit.RetrofitInstance
 import com.erionna.eternalreturninfo.ui.activity.WebView
 import com.erionna.eternalreturninfo.ui.adapter.NoticeBannerListAdapter
 import com.erionna.eternalreturninfo.ui.adapter.VideoListAdapter
 import com.erionna.eternalreturninfo.ui.fragment.LinePagerIndicatorDecoration
 import com.erionna.eternalreturninfo.ui.fragment.SnapPagerScrollListener
-import com.erionna.eternalreturninfo.ui.viewmodel.BoardListViewModel
 import com.erionna.eternalreturninfo.ui.viewmodel.MainListViewModel
-import com.erionna.eternalreturninfo.util.Constants
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class MainFragment : Fragment() {
     companion object {
@@ -112,7 +99,6 @@ class MainFragment : Fragment() {
 
         videoListAdapter.setOnItemClickListener(object : VideoListAdapter.OnItemClickListener{
             override fun onItemClick(item: VideoModel, position: Int) {
-                Log.d("item.id", item.id.toString())
                 val videoUrl = "https://www.youtube.com/watch?v=${item.id}"
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse(videoUrl))
                 intent.setPackage("com.google.android.youtube")

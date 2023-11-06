@@ -12,8 +12,6 @@ import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.BoardSearchActivityBinding
 import com.erionna.eternalreturninfo.model.BoardModel
 import com.erionna.eternalreturninfo.retrofit.FBRef
-import com.erionna.eternalreturninfo.ui.activity.board.BoardDeleted
-import com.erionna.eternalreturninfo.ui.activity.board.BoardPost
 import com.erionna.eternalreturninfo.ui.adapter.board.BoardRecyclerViewAdapter
 import com.erionna.eternalreturninfo.ui.viewmodel.BoardListViewModel
 import com.erionna.eternalreturninfo.ui.viewmodel.BoardListViewModelFactory

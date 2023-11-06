@@ -52,7 +52,6 @@ class FindDuoFragment : Fragment() {
         FindduoAdapter(
             requireContext(),
             onClickUser = { position, item ->
-                Log.d("choco5733", "$item")
                 if (item.uid != mAuth.uid) {
                     val customDialog = BoardDialog(requireContext(), item.name ?: "", object :
                         DialogListener {
@@ -163,13 +162,11 @@ class FindDuoFragment : Fragment() {
                             filteredUserCount.toString() // 필터링된 사용자 수 표시
                     } else {
                         // 데이터가 존재하지 않는 경우
-                        Log.d(TAG, "No user data found")
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     // 데이터 가져오기가 실패한 경우
-                    Log.e(TAG, "Data retrieval failed: $error")
                 }
             })
     }
@@ -211,7 +208,6 @@ class FindDuoFragment : Fragment() {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    Log.e(TAG, "Error deleting specific fields: $error")
                 }
             })
     }

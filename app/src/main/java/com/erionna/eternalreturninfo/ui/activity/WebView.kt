@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.webkit.WebChromeClient
 import android.webkit.WebViewClient
-import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.WebVewActivityBinding
 
 class WebView : AppCompatActivity() {

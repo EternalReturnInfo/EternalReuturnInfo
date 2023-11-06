@@ -1,6 +1,5 @@
 package com.erionna.eternalreturninfo.ui.adapter
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.view.isVisible

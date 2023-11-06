@@ -1,6 +1,5 @@
 package com.erionna.eternalreturninfo.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -89,8 +88,6 @@ class ChatListViewModel(
         } else {
             currentList[position].time = ""
         }
-
-        Log.d("choco5733 : 뷰모델 ", "${currentList[position]}")
 
         _list.value = currentList
 

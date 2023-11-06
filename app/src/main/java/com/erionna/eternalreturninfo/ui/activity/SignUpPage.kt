@@ -2,27 +2,22 @@ package com.erionna.eternalreturninfo.ui.activity
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.SignupInformationActivityBinding
 import com.erionna.eternalreturninfo.model.ERModel
-import com.erionna.eternalreturninfo.model.Notice
 import com.erionna.eternalreturninfo.model.SignUpData
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.RetrofitInstance
-import com.erionna.eternalreturninfo.ui.adapter.NoticeBannerListAdapter
 import com.erionna.eternalreturninfo.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -94,7 +89,6 @@ class SignUpPage : AppCompatActivity() {
                                     signup_nickname = gameResponse.user.nickname
                                 }
                             }
-                            Log.d("닉네임체크",signup_nickname)
 
                         }
 
@@ -156,7 +150,6 @@ class SignUpPage : AppCompatActivity() {
     ) {
         if (email.isNotEmpty() && password.isNotEmpty() && passwordCheck.isNotEmpty() && nickname.isNotEmpty()) {
             if (password == passwordCheck) {
-                Log.d("닉네임체크", "$nickNameCheck")
                 if (nickNameCheck == 0) {
                     auth?.createUserWithEmailAndPassword(email, password)
                         ?.addOnCompleteListener(this) { task ->
@@ -257,8 +250,6 @@ class SignUpPage : AppCompatActivity() {
                         .update("profile", uri.toString())
                 }
             }
-            .addOnFailureListener { Log.i("업로드 실패", "") }
-            .addOnSuccessListener { Log.i("업로드 성공", "") }
     }
 
     fun nicknameCheck(nickname: String) {

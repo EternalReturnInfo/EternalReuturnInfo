@@ -4,7 +4,6 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.PopupMenu
 import androidx.core.content.ContextCompat
@@ -89,7 +88,6 @@ class BoardPost : AppCompatActivity() {
                     board = snapshot.getValue<BoardModel>()
 
                     boardPostTvContent.text = board?.content
-//                    boardPostTvVisit.text = board?.views.toString()
 
                     if(board?.category == "공지"){
                         boardPostTvTitle.text = board?.title
@@ -128,8 +126,6 @@ class BoardPost : AppCompatActivity() {
                                                 }
                                                 R.id.menu_comment_delete -> {
                                                     finish()
-
-                                                    Log.d("board.id", board?.id.toString())
                                                     FBRef.postRef.child(board?.id.toString()).removeValue()
                                                 }
                                             }

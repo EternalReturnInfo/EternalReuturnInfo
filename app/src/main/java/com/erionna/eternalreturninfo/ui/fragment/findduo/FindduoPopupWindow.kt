@@ -1,10 +1,8 @@
 package com.erionna.eternalreturninfo.ui.fragment.findduo
 
-import android.content.ContentValues
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -202,7 +200,6 @@ class FindduoPopupWindow(private val context: Context) {
 
         // 사용자의 Firebase UID가 없으면 함수를 종료
         if (userId == null) {
-            Log.w(ContentValues.TAG, "User UID is null")
             return
         }
 
@@ -216,16 +213,6 @@ class FindduoPopupWindow(private val context: Context) {
 
         // 데이터베이스에 업데이트할 내용을 설정
         mDbRef.child(databasePath).updateChildren(updateData)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    // 업데이트가 성공한 경우
-                    Log.d(ContentValues.TAG, "User info updated successfully")
-                    // 여기에 추가적인 작업을 수행할 수 있습니다.
-                } else {
-                    // 업데이트가 실패한 경우
-                    Log.e(ContentValues.TAG, "User info update failed: ${task.exception}")
-                }
-            }
     }
 
     private fun updateMostInFirestore(finalSelection: String?) {
@@ -235,12 +222,6 @@ class FindduoPopupWindow(private val context: Context) {
 
             // Firestore의 'most' 필드 업데이트
             userRef.update("character", finalSelection)
-                .addOnSuccessListener {
-                    Log.d(ContentValues.TAG, "Firestore 'most' 업데이트 성공")
-                }
-                .addOnFailureListener { e ->
-                    Log.e(ContentValues.TAG, "Firestore 'most' 업데이트 실패: $e")
-                }
         }
     }
 }

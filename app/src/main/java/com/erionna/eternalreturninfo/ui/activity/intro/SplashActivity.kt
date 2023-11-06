@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.os.Handler
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.ui.activity.LoginPage
-import com.erionna.eternalreturninfo.ui.activity.MainActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
-import com.bumptech.glide.Glide
 import com.erionna.eternalreturninfo.databinding.MainRvBannerBinding
 import com.erionna.eternalreturninfo.model.Notice
 

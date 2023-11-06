@@ -3,18 +3,18 @@ package com.erionna.eternalreturninfo.ui.activity.board
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.erionna.eternalreturninfo.R
-import com.erionna.eternalreturninfo.databinding.BoardAddActivity2Binding
+import com.erionna.eternalreturninfo.databinding.BoardAddActivityBinding
 import com.erionna.eternalreturninfo.model.BoardModel
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.FBRef
 
 class BoardUpdate : AppCompatActivity() {
 
-    private lateinit var binding: BoardAddActivity2Binding
+    private lateinit var binding: BoardAddActivityBinding
     private var category = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = BoardAddActivity2Binding.inflate(layoutInflater)
+        binding = BoardAddActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initView()

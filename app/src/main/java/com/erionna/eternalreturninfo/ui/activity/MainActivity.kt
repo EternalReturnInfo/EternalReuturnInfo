@@ -2,11 +2,9 @@ package com.erionna.eternalreturninfo.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.MainActivityBinding
 import com.erionna.eternalreturninfo.ui.adapter.MainViewPagerAdapter
-import com.erionna.eternalreturninfo.ui.fragment.MyProfileFragment
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.google.firebase.auth.FirebaseAuth

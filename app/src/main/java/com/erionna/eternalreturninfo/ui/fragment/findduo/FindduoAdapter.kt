@@ -1,9 +1,7 @@
 package com.erionna.eternalreturninfo.ui.fragment.findduo
 
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -243,7 +241,6 @@ class FindduoAdapter(
                             }
 
                         } else {
-                            Log.d("userStateResponse", "${userstate_response}")
                         }
                     }
 

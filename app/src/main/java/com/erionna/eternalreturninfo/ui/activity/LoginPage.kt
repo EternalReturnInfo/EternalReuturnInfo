@@ -3,28 +3,21 @@ package com.erionna.eternalreturninfo.ui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.FindpwDialogBinding
 import com.erionna.eternalreturninfo.databinding.GoogleDialogBinding
 import com.erionna.eternalreturninfo.databinding.LoginActivityBinding
-import com.erionna.eternalreturninfo.model.ERModel
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -37,15 +30,6 @@ class LoginPage : AppCompatActivity() {
     var firestore: FirebaseFirestore? = null
     var mGoogleSignInClient: GoogleSignInClient? = null
     var db = Firebase.firestore
-
-
-//      ??
-//    override fun onStart() {
-//        auth = FirebaseAuth.getInstance()
-//        super.onStart()
-//        val currentUser = auth!!.currentUser
-//        updateUI(currentUser)
-//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

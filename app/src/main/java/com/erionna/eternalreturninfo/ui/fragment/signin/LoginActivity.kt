@@ -3,7 +3,6 @@ package com.erionna.eternalreturninfo.ui.fragment.signin
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.erionna.eternalreturninfo.databinding.LoginActivity2Binding
 import com.erionna.eternalreturninfo.ui.fragment.signup.SignUpActivity
@@ -76,7 +75,6 @@ class LoginActivity : AppCompatActivity() {
                     finish()
                 } else {
                     Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
-                    Log.d("Login", "Error:${task.exception}")
                 }
             }
     }

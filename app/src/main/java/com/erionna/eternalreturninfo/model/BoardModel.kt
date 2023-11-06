@@ -2,10 +2,6 @@ package com.erionna.eternalreturninfo.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
-import kotlinx.android.parcel.RawValue
-import org.w3c.dom.Comment
-import java.util.Date
-
 @Parcelize
 data class BoardModel (
     val id: String = "",

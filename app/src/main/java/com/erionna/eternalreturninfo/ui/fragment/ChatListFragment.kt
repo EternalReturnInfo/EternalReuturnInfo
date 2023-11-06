@@ -1,9 +1,7 @@
 package com.erionna.eternalreturninfo.ui.fragment
 
-import android.annotation.SuppressLint
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,7 +29,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.google.protobuf.Value
 
 class ChatListFragment : Fragment() {
 
@@ -48,7 +45,6 @@ class ChatListFragment : Fragment() {
     private val chatListAdapter by lazy {
         ChatListAdapter(
             onClickItem = { position, item ->
-                Log.d("choco5733 list", "$item")
                 chatLauncher.launch(
                     ChatActivity.newIntentForModify(
                         requireContext(),
@@ -73,7 +69,6 @@ class ChatListFragment : Fragment() {
                 val time = result.data?.getStringExtra(EXTRA_TIME)
                 val eRModel = result.data?.getParcelableExtra<ERModel>(EXTRA_ER_MODEL)
 
-                Log.d("choco5733 : 돌아왔을때", "$message $time $position")
                 viewModel.modifyItem(position!!, message!!, time!!)
             }
         }
@@ -113,8 +108,6 @@ class ChatListFragment : Fragment() {
         chatListRecyclerview.adapter = chatListAdapter
         chatListRecyclerview.layoutManager = LinearLayoutManager(context)
         chatListRecyclerview.itemAnimator = null
-
-        Log.d("choco5744", "${viewModel.currentList()}")
 
         database = Firebase.database.reference
 
@@ -177,8 +170,6 @@ class ChatListFragment : Fragment() {
                                 for (child in snapshot.children) {
                                     message = child.getValue(Message::class.java)!!
                                 }
-                                Log.d("choco5733 in msg", "$message")
-
 
                                 viewModel.modifyItem2(
                                     currentUser?.copy(
@@ -230,8 +221,6 @@ class ChatListFragment : Fragment() {
                     val currentUser = child.getValue(ERModel::class.java)
                     senderRoom = auth.currentUser?.uid + currentUser?.uid
                     receiverRoom = currentUser?.uid + auth.currentUser?.uid
-                    Log.d("choco5733" , "senderRoom : ${senderRoom}")
-                    Log.d("choco5733" , "receiverRoom : ${receiverRoom}")
 
                     var message = Message()
                     var convertTime = ""
@@ -242,7 +231,6 @@ class ChatListFragment : Fragment() {
                             for (child in it.children) {
                                 message = child.getValue(Message::class.java)!!
                             }
-                            Log.d("choco5733 in msg", "$message")
 
                             if (auth.currentUser?.uid != currentUser?.uid) {
                                 if (message.time != "") {
@@ -262,7 +250,6 @@ class ChatListFragment : Fragment() {
                             } else {
                                 // 현재 접속자 상단에 표시
                                 binding.chatListTitle.text = " ${currentUser?.name} 님 반갑습니다!"
-                                Log.d("choco5733 currentuser", "${currentUser?.name}")
                             }
                         }
 
@@ -274,7 +261,6 @@ class ChatListFragment : Fragment() {
                                     for (child in snapshot.children) {
                                         message = child.getValue(Message::class.java)!!
                                     }
-                                    Log.d("choco5733 in msg", "$message")
 
                                     if (auth.currentUser?.uid != currentUser?.uid) {
                                         if (message.time != "") {

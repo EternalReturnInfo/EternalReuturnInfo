@@ -1,30 +1,22 @@
 package com.erionna.eternalreturninfo.ui.adapter.board
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.erionna.eternalreturninfo.R
-import com.erionna.eternalreturninfo.databinding.BoardMyProfileRvItemBinding
 import com.erionna.eternalreturninfo.databinding.BoardRvItemBinding
 import com.erionna.eternalreturninfo.model.BoardModel
 import com.erionna.eternalreturninfo.model.ERModel
-import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 
 class BoardRecyclerViewAdapter() : ListAdapter<BoardModel, BoardRecyclerViewAdapter.ViewHolder>(
 
@@ -106,9 +98,6 @@ class BoardRecyclerViewAdapter() : ListAdapter<BoardModel, BoardRecyclerViewAdap
             }
 
             boardPostTvTitle.text = item.title
-
-
-//            boardPostTvDate.text = formatTimeOrDate(item.date)
             boardPostTvContent.text = item.content
 
             if(item.comments.size == 0){
@@ -125,24 +114,6 @@ class BoardRecyclerViewAdapter() : ListAdapter<BoardModel, BoardRecyclerViewAdap
             }
 
         }
-    }
-
-    fun formatTimeOrDate(postTime: Long): String {
-        val calendar = Calendar.getInstance()
-        calendar.set(Calendar.HOUR_OF_DAY, 0)
-        calendar.set(Calendar.MINUTE, 0)
-        calendar.set(Calendar.SECOND, 0)
-
-        val date1 = calendar.time
-
-        val simpleDateFormat: SimpleDateFormat
-        if (Date(postTime) > date1) {
-            simpleDateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        } else {
-            simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        }
-
-        return simpleDateFormat.format(Date(postTime))
     }
 
 }
