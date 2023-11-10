@@ -131,30 +131,6 @@
                 app:layout_constraintEnd_toEndOf="@+id/login_login_btn"
                 app:layout_constraintTop_toBottomOf="@+id/login_login_btn" />
 
-
-            <Button
-                android:id="@+id/login_snsLogin_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="180dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginBottom="32dp"
-                android:background="@drawable/shape_google_login_btn"
-                android:text="구글 로그인"
-                android:textColor="#00E2FF"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/login_login_btn" />
-
-
-
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

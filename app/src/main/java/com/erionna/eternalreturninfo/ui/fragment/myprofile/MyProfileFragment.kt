@@ -226,7 +226,6 @@ class MyProfileFragment : Fragment() {
 
                     R.id.menu_pwchange -> {
                         var emailCheck = auth?.currentUser?.providerData?.get(0)?.providerId
-                        Log.d("로그인 방식 체크", emailCheck!!)
                         if (emailCheck == "password") {
                             val pwChangeDialogView =
                                 layoutInflater.inflate(R.layout.myprofile_pwchange_dialog, null)

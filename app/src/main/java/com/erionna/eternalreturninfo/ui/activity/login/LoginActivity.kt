@@ -115,10 +115,10 @@ class LoginActivity : AppCompatActivity() {
         }
 
         //구글로그인 다이얼로그 버튼
-        binding.loginSnsLoginBtn.setOnClickListener {
-            val intent = mGoogleSignInClient!!.signInIntent
-            startActivityForResult(intent, 100)
-        }
+//        binding.loginSnsLoginBtn.setOnClickListener {
+//            val intent = mGoogleSignInClient!!.signInIntent
+//            startActivityForResult(intent, 100)
+//        }
     }
 
     // 일반 이메일 로그인
@@ -232,10 +232,8 @@ class LoginActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { result ->
                 for (document in result) {
-                    Log.d("이메일중복확인", document.data["email"].toString())
                     if (email == document.data["email"].toString()) {
                         emailCheck = true
-                        Log.d("이메일체크", emailCheck.toString())
                     }
                 }
             }
