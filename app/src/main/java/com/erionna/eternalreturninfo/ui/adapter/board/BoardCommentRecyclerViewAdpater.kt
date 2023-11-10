@@ -30,7 +30,7 @@ import com.erionna.eternalreturninfo.retrofit.FBRef
 import com.erionna.eternalreturninfo.ui.activity.board.BoardDialog
 import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity
 import com.erionna.eternalreturninfo.ui.activity.board.DialogListener
-import com.erionna.eternalreturninfo.ui.activity.login.LoginPage
+import com.erionna.eternalreturninfo.ui.activity.login.LoginActivity
 import com.erionna.eternalreturninfo.ui.activity.main.MainActivity
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot

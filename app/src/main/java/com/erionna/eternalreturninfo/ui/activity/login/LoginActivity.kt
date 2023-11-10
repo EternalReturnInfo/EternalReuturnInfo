@@ -150,6 +150,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    /////
     // 구글 로그인
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

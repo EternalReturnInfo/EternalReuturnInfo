@@ -310,7 +310,7 @@ class MyProfileFragment : Fragment() {
         var uid = auth?.uid.toString()
         Patch(uid)
     }
-
+////
     fun selectProfile() {
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply { type = "image/*" }
         startActivityForResult(intent, pickImage)

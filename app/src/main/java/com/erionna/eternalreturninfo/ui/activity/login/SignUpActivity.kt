@@ -75,7 +75,7 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "이메일을 입력하세요", Toast.LENGTH_SHORT).show()
             }
         }
-
+////
         binding.signupBtnNicknameCheck.setOnClickListener {
             NickNameCheck(binding.signupNickNameEt.text.toString())
         }
