@@ -26,6 +26,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.skydoves.powermenu.CircularEffect
+import com.skydoves.powermenu.MenuAnimation
+import com.skydoves.powermenu.OnMenuItemClickListener
+import com.skydoves.powermenu.PowerMenu
+import com.skydoves.powermenu.PowerMenuItem
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -36,7 +41,9 @@ class BoardPost : AppCompatActivity() {
     private lateinit var binding: BoardPostActivityBinding
 
     private val listAdapter by lazy {
-        BoardCommentRecyclerViewAdpater()
+        BoardCommentRecyclerViewAdpater(
+            this
+        )
     }
 
     private val boardViewModel by lazy {
@@ -117,25 +124,46 @@ class BoardPost : AppCompatActivity() {
                                     boardPostIbMenu.visibility = View.VISIBLE
 
                                     boardPostIbMenu.setOnClickListener {
-                                        val popup = PopupMenu(binding.root.context, boardPostIbMenu) // View 변경
-                                        popup.menuInflater.inflate(R.menu.menu_option_comment, popup.menu)
-                                        popup.setOnMenuItemClickListener { menu ->
-                                            when (menu.itemId) {
-                                                R.id.menu_comment_update -> {
-                                                    val updateIntent = Intent(this@BoardPost, BoardUpdate::class.java)
-                                                    updateIntent.putExtra("updateBoard", board)
-                                                    startActivity(updateIntent)
-                                                }
-                                                R.id.menu_comment_delete -> {
-                                                    finish()
 
-                                                    Log.d("board.id", board?.id.toString())
-                                                    FBRef.postRef.child(board?.id.toString()).removeValue()
+                                        // 팝업메뉴 onClick 리스너
+                                        val onMenuItemClickListener = object :
+                                            OnMenuItemClickListener<PowerMenuItem> {
+                                            override fun onItemClick(position: Int, item: PowerMenuItem) {
+                                                when (position) {
+                                                    // 0 : 수정,   1 : 삭제
+                                                    0 -> {
+                                                        val updateIntent = Intent(this@BoardPost, BoardUpdate::class.java)
+                                                        updateIntent.putExtra("updateBoard", board)
+                                                        startActivity(updateIntent)
+                                                    }
+                                                    else -> {
+                                                        finish()
+
+                                                        Log.d("board.id", board?.id.toString())
+                                                        FBRef.postRef.child(board?.id.toString()).removeValue()
+                                                    }
                                                 }
                                             }
-                                            false
                                         }
-                                        popup.show()
+
+
+                                        val powerMenu = PowerMenu.Builder(this@BoardPost)
+                                            .addItem(PowerMenuItem("수정"))
+                                            .addItem(PowerMenuItem("삭제"))
+                                            .setMenuRadius(20f) // sets the corner radius.
+                                            .setTextSize(18)
+                                            .setWidth(400)
+//                                    .setTextGravity(Gravity.CENTER)
+                                            .setTextColor(ContextCompat.getColor(this@BoardPost, R.color.white))
+                                            .setMenuColor(ContextCompat.getColor(this@BoardPost, R.color.darkgray))
+                                            .setSelectedMenuColor(ContextCompat.getColor(this@BoardPost, R.color.black))
+                                            .setOnMenuItemClickListener(onMenuItemClickListener)
+//                                            .setLifecycleOwner(viewLifecycleOwner)
+                                            .setCircularEffect(CircularEffect.BODY)
+                                            .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
+                                            .build()
+                                            .showAsDropDown(it)
+
                                     }
                                 } else {
                                     boardPostIbMenu.visibility = View.INVISIBLE

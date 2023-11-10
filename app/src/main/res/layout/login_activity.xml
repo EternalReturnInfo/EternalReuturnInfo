@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    tools:context=".ui.activity.login.LoginActivity">
+    tools:context=".ui.activity.login.LoginPage">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -130,6 +130,12 @@
                 android:textSize="14sp"
                 app:layout_constraintEnd_toEndOf="@+id/login_login_btn"
                 app:layout_constraintTop_toBottomOf="@+id/login_login_btn" />
+
+
+
+
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

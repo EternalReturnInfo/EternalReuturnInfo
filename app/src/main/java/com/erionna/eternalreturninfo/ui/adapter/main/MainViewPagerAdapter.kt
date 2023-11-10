@@ -16,7 +16,6 @@ class MainViewPagerAdapter(
 ) : FragmentStateAdapter(
     fragmentActivity
 ) {
-
     private val fragments = listOf(
         MainTabs(MainFragment.newInstance(), R.string.main_tab_main_title),
         MainTabs(FindDuoFragment.newInstance(), R.string.main_tab_search_duo),
@@ -36,8 +35,8 @@ class MainViewPagerAdapter(
     override fun createFragment(position: Int): Fragment {
         return fragments[position].fragment
     }
+
     override fun getItemCount(): Int {
         return fragments.size
     }
-
 }

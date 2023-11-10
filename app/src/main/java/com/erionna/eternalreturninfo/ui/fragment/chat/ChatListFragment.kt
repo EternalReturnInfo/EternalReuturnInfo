@@ -71,7 +71,7 @@ class ChatListFragment : Fragment() {
                 val eRModel = result.data?.getParcelableExtra<ERModel>(EXTRA_ER_MODEL)
 
                 Log.d("choco5733 : 돌아왔을때", "$message $time $position")
-                viewModel.modifyItem(position!!, message!!, time!!)
+                viewModel.modifyItemForCallBack(position!!, message!!, time!!)
             }
         }
 
@@ -101,6 +101,8 @@ class ChatListFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
+
+
         chatListRecyclerview.adapter = chatListAdapter
         chatListRecyclerview.layoutManager = LinearLayoutManager(context)
         chatListRecyclerview.itemAnimator = null
@@ -117,6 +119,10 @@ class ChatListFragment : Fragment() {
                 }
             }
         }
+
+
+
+
     }
 
     private fun initModel() = with(viewModel) {
@@ -131,7 +137,7 @@ class ChatListFragment : Fragment() {
         database.child("user").addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
-                // 리스트 초기화 for 회원가입시 중복리스트
+                // 리스트 초기화 for 회원가입시 리스트 중복추가 문제 해결
                 viewModel.clearList()
                 var senderRoom = ""
                 var receiverRoom = ""
@@ -160,7 +166,7 @@ class ChatListFragment : Fragment() {
                             }
 
                             override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
+                                Log.e("choco5733 in chatList", error.message)
                             }
 
                         })
@@ -175,7 +181,7 @@ class ChatListFragment : Fragment() {
                                 Log.d("choco5733 in msg", "$message")
 
 
-                                viewModel.modifyItem2(
+                                viewModel.modifyItemForChatList(
                                     currentUser?.copy(
                                         msg = message.message,
                                         time = message.time,
@@ -185,7 +191,7 @@ class ChatListFragment : Fragment() {
                             }
 
                             override fun onCancelled(error: DatabaseError) {
-                                TODO("Not yet implemented")
+                                Log.e("choco5733", error.message)
                             }
                         })
 
@@ -197,7 +203,7 @@ class ChatListFragment : Fragment() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("choco5733", error.message)
             }
 
         })

@@ -1,9 +1,22 @@
 package com.erionna.eternalreturninfo.ui.adapter.board
 
+import android.content.Context
+import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.PopupMenu
+import android.widget.Spinner
+import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,16 +30,29 @@ import com.erionna.eternalreturninfo.retrofit.FBRef
 import com.erionna.eternalreturninfo.ui.activity.board.BoardDialog
 import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity
 import com.erionna.eternalreturninfo.ui.activity.board.DialogListener
+import com.erionna.eternalreturninfo.ui.activity.login.LoginPage
+import com.erionna.eternalreturninfo.ui.activity.main.MainActivity
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import com.skydoves.powermenu.CircularEffect
+import com.skydoves.powermenu.MenuAnimation
+import com.skydoves.powermenu.OnMenuItemClickListener
+import com.skydoves.powermenu.PowerMenu
+import com.skydoves.powermenu.PowerMenuItem
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
-class BoardCommentRecyclerViewAdpater() : ListAdapter<CommentModel, BoardCommentRecyclerViewAdpater.ViewHolder>(
+class BoardCommentRecyclerViewAdpater(
+    context: Context
+) : ListAdapter<CommentModel, BoardCommentRecyclerViewAdpater.ViewHolder>(
 
     object : DiffUtil.ItemCallback<CommentModel>() {
         override fun areItemsTheSame(
@@ -61,7 +87,8 @@ class BoardCommentRecyclerViewAdpater() : ListAdapter<CommentModel, BoardComment
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
-            BoardPostRvCommentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            BoardPostRvCommentItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
+            parent.context
         )
     }
 
@@ -71,7 +98,8 @@ class BoardCommentRecyclerViewAdpater() : ListAdapter<CommentModel, BoardComment
     }
 
     inner class ViewHolder(
-        private val binding: BoardPostRvCommentItemBinding
+        private val binding: BoardPostRvCommentItemBinding,
+        private val context: Context
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CommentModel) = with(binding) {
@@ -91,24 +119,45 @@ class BoardCommentRecyclerViewAdpater() : ListAdapter<CommentModel, BoardComment
                             boardCommentIbProfile.load(author?.profilePicture)
                         }
 
-                        //로그인한 사용자면 ibMenu 보여주기
+                        // 로그인한 사용자면 ibMenu 보여주기
                         if (author?.uid == BoardSingletone.LoginUser().uid) {
                             boardCommentIbMenu.visibility = View.VISIBLE
                             boardCommentIbMenu.setOnClickListener {
-                                val popup = PopupMenu(binding.root.context, boardCommentIbMenu) // View 변경
-                                popup.menuInflater.inflate(R.menu.menu_option_comment, popup.menu)
-                                popup.setOnMenuItemClickListener { menu ->
-                                    when (menu.itemId) {
-                                        R.id.menu_comment_update -> {
-                                            onUpdateItemClickListener?.onUpdateItemClick(item, adapterPosition)
-                                        }
-                                        R.id.menu_comment_delete -> {
-                                            onDeleteItemClickListener?.onDeleteItemClick(item, adapterPosition)
+
+
+                                // 팝업메뉴 onClick 리스너
+                                val onMenuItemClickListener = object : OnMenuItemClickListener<PowerMenuItem> {
+                                    override fun onItemClick(position: Int, item2: PowerMenuItem) {
+                                        when (position) {
+                                            // 0 : 수정,   1 : 삭제
+                                            0 -> {
+                                                onUpdateItemClickListener?.onUpdateItemClick(item, adapterPosition)
+                                            }
+                                            else -> {
+                                                onDeleteItemClickListener?.onDeleteItemClick(item, adapterPosition)
+                                            }
                                         }
                                     }
-                                    false
                                 }
-                                popup.show()
+
+                                val powerMenu = PowerMenu.Builder(context)
+                                    .addItem(PowerMenuItem("수정"))
+                                    .addItem(PowerMenuItem("삭제"))
+                                    .setMenuRadius(20f) // sets the corner radius.
+                                    .setTextSize(18)
+                                    .setWidth(400)
+//                                    .setTextGravity(Gravity.CENTER)
+                                    .setTextColor(ContextCompat.getColor(context, R.color.white))
+                                    .setMenuColor(ContextCompat.getColor(context, R.color.darkgray))
+                                    .setSelectedMenuColor(ContextCompat.getColor(context, R.color.black))
+                                    .setOnMenuItemClickListener(onMenuItemClickListener)
+//                                    .setLifecycleOwner(viewLifecycleOwner)
+                                    .setCircularEffect(CircularEffect.BODY)
+                                    .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
+                                    .build()
+                                    .showAsDropDown(it)
+//                                    .dissmiss()
+
                             }
                         } else {
                             boardCommentIbMenu.visibility = View.INVISIBLE
@@ -159,9 +208,8 @@ class BoardCommentRecyclerViewAdpater() : ListAdapter<CommentModel, BoardComment
             } else {
                 simpleDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
             }
-
             return simpleDateFormat.format(Date(postTime))
         }
-    }
 
+    }
 }

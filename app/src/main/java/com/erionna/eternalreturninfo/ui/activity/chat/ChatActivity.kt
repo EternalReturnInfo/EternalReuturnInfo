@@ -76,16 +76,20 @@ class ChatActivity : AppCompatActivity() {
     private val position by lazy {
         intent.getIntExtra(EXTRA_ER_POSITION, -1)
     }
+
+    // data
     private val data by lazy {
         intent.getParcelableExtra<ERModel>(EXTRA_ER_MODEL)
     }
 
+    // reference
     private lateinit var refDb: DatabaseReference
     private lateinit var refEventListener: ValueEventListener
 
     // AtomicLong
     private val idGenerate = AtomicLong(1L)
 
+    // chatAdpater
     private val chatAdapter by lazy {
         ChatAdapter(
             messageList,
@@ -113,8 +117,6 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
-
-
     private fun initView() = with(binding) {
         // 리사이클러뷰 초기화
         chatRecycler.adapter = chatAdapter
@@ -128,6 +130,8 @@ class ChatActivity : AppCompatActivity() {
             refDb.removeEventListener(refEventListener)
             finish()
         }
+
+
     }
 
     private fun saveChat() {
@@ -142,8 +146,6 @@ class ChatActivity : AppCompatActivity() {
         // 받는이 방
         receiverRoom = senderUid + receiverUid
 
-
-
         // 메시지 저장하기
         binding.chatSendBtn.setOnClickListener {
             val time = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -151,7 +153,6 @@ class ChatActivity : AppCompatActivity() {
             } else {
                 TODO("VERSION.SDK_INT < O")
             }
-
             // et에 입력한 메시지
             val message = binding.chatMsgEt.text.toString()
             val messageObject = Message(id = "${idGenerate.getAndIncrement()}" + time, message = message , sendId = senderUid, time = time, receiverId = receiverUid, readOrNot = false, whereRU = true)
@@ -172,7 +173,6 @@ class ChatActivity : AppCompatActivity() {
                 map.put("whereRU", true)
 
             }
-
         }
     }
 
@@ -241,7 +241,7 @@ class ChatActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.e("choco5733", error.message)
             }
         }
 

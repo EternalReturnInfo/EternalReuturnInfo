@@ -67,4 +67,6 @@
     <string name="chat_item_time">2023-01-12 14시 51분</string>
     <string name="chat_item_readOrNot">1</string>
     <string name="chat_item_msg">받는 메시지</string>
+    <string name="find_duo_register"><u>듀오 찾기!</u></string>
+    <string name="test">이메일과 비밀번호를 확인하세요.</string>
 </resources>

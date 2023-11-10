@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -31,6 +32,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import www.sanju.motiontoast.MotionToast
+import www.sanju.motiontoast.MotionToastStyle
 
 class SignUpActivity : AppCompatActivity() {
     private lateinit var binding: SignupInformationActivityBinding
@@ -156,34 +159,60 @@ class SignUpActivity : AppCompatActivity() {
                                 startActivity(intent)
                                 finish()
                             } else {
-                                Toast.makeText(
-                                    this, "계정 생성 실패",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                MotionToast.darkColorToast(
+                                    this, "", "계정 생성 실패",
+                                    MotionToastStyle.ERROR,
+                                    MotionToast.GRAVITY_BOTTOM,
+                                    MotionToast.SHORT_DURATION,
+                                    font = null
+                                )
                             }
                         }
                 } else {
-                    Toast.makeText(this, "중복된 닉네임입니다.", Toast.LENGTH_SHORT).show()
+                    MotionToast.darkColorToast(
+                        this, "CHECK", "중복된 닉네임입니다.",
+                        MotionToastStyle.WARNING,
+                        MotionToast.GRAVITY_BOTTOM,
+                        MotionToast.SHORT_DURATION,
+                        font = null
+                    )
                 }
             } else {
-                Toast.makeText(this, "같은 비밀번호를 입력하세요.", Toast.LENGTH_SHORT).show()
+                MotionToast.darkColorToast(
+                    this, "CHECK", "같은 비밀번호를 입력하세요",
+                    MotionToastStyle.WARNING,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.SHORT_DURATION,
+                    font = null
+                )
             }
         } else {
-            Toast.makeText(this, "회원가입 정보를 입력하세요", Toast.LENGTH_SHORT).show()
+            MotionToast.darkColorToast(
+                this, "CHECK", "회원가입 정보를 입력하세요",
+                MotionToastStyle.WARNING,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.SHORT_DURATION,
+                font = null
+            )
         }
     }
 
     private fun setDocument(data: SignUpData) {
-        auth.uid?.let {
-            db.collection(collection)
-                .document(it)
-                .set(data)
-                .addOnSuccessListener {
-                }
-                .addOnFailureListener {
-                    Toast.makeText(this, "닉네임 값 저장 실패", Toast.LENGTH_SHORT).show()
-                }
-        }
+        FirebaseFirestore.getInstance()
+            .collection("EternalReturnInfo")
+            .document(auth.uid!!)
+            .set(data)
+            .addOnSuccessListener {
+            }
+            .addOnFailureListener {
+                MotionToast.darkColorToast(
+                    this, "ERROR", "닉네임 값 저장 실패",
+                    MotionToastStyle.ERROR,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.SHORT_DURATION,
+                    font = null
+                )
+            }
     }
 
     fun selectProfile() {
@@ -340,6 +369,4 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 }
-
-
 

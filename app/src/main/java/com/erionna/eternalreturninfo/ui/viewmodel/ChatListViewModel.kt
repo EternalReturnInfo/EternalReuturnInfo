@@ -71,7 +71,7 @@ class ChatListViewModel(
         _list.value = currentList
     }
 
-    fun modifyItem(position: Int, message: String, time: String) {
+    fun modifyItemForCallBack(position: Int, message: String, time: String) {
         val currentList = list.value.orEmpty().toMutableList()
 
         currentList[position].msg = message
@@ -90,7 +90,7 @@ class ChatListViewModel(
 
     }
 
-    fun modifyItem2(item: ERModel?) {
+    fun modifyItemForChatList(item: ERModel?) {
         fun findIndex(item: ERModel?): Int {
             val currentList = list.value.orEmpty().toMutableList()
             val findER = currentList.find{
