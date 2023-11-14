@@ -8,6 +8,8 @@
         <item name="windowNoTitle">true</item>
         <!-- white status bar -->
         <item name="android:windowLightStatusBar">true</item>
+<!--        <item name="android:windowIsTranslucent">true</item>-->
+
     </style>
 
     <style name="ThemeToolbar" parent="Theme.AppCompat.Light">
@@ -19,6 +21,8 @@
     <style name="Round" parent="">
         <item name="cornerSize">10%</item>
     </style>
+
+
 
 
     <style name="Theme.EternalReturnInfo" parent="Base.Theme.EternalReturnInfo" />

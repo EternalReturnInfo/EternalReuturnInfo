@@ -74,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
                                 MotionToast.darkColorToast(
-                                    this, "", Email.toString() + getString(R.string.login_success),
+                                    this, "", Email.toString() + getString(R.string.login_lostpw_success),
                                     MotionToastStyle.SUCCESS,
                                     MotionToast.GRAVITY_BOTTOM,
                                     MotionToast.SHORT_DURATION,
