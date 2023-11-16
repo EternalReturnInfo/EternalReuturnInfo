@@ -116,23 +116,3 @@ class ChatAdapter2(
     }
 }
 
-//             기존 에러 코드
-//            database.child("chats").child(recevierRoom).child("messages")
-//                .addValueEventListener(object : ValueEventListener {
-//                    override fun onDataChange(snapShot: DataSnapshot) {
-//                        var receiverReadOrNot: Boolean? = null
-//                        for (child in snapShot.children) {
-//                            val message = child.getValue(Message::class.java)
-//                            receiverReadOrNot = message?.readOrNot
-//                        }
-//                        if ( receiverReadOrNot == true ) {
-//                            chatItemSenderReadCount.visibility = View.INVISIBLE
-//                        } else {
-//                            chatItemSenderReadCount.visibility = View.VISIBLE
-//                        }
-//                    }
-//                    override fun onCancelled(error: DatabaseError) {
-//                        TODO("Not yet implemented")
-//                    }
-//                })
-

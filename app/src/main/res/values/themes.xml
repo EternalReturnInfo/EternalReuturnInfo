@@ -8,7 +8,7 @@
         <item name="windowNoTitle">true</item>
         <!-- white status bar -->
         <item name="android:windowLightStatusBar">true</item>
-<!--        <item name="android:windowIsTranslucent">true</item>-->
+        <item name="android:windowIsTranslucent">true</item>
 
     </style>
 

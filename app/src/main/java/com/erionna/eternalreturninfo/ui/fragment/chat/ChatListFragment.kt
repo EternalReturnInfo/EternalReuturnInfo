@@ -102,7 +102,6 @@ class ChatListFragment : Fragment() {
 
     private fun initView() = with(binding) {
 
-
         chatListRecyclerview.adapter = chatListAdapter
         chatListRecyclerview.layoutManager = LinearLayoutManager(context)
         chatListRecyclerview.itemAnimator = null
@@ -119,10 +118,6 @@ class ChatListFragment : Fragment() {
                 }
             }
         }
-
-
-
-
     }
 
     private fun initModel() = with(viewModel) {
