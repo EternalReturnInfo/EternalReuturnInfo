@@ -1,4 +1,4 @@
-![header](https://capsule-render.vercel.app/api?type=waving&color=000000&height=300&section=header&text=ER%20Info&fontSize=90&fontColor=7FEBFF)
+![Untitled](https://github.com/EternalReturnInfo/EternalReuturnInfo/assets/69956389/7da11395-6010-420b-9ac5-9c582e65a131)
 
 
 # 🎧 팀 소개
