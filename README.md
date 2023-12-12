@@ -1,4 +1,5 @@
-![Untitled](https://github.com/EternalReturnInfo/EternalReuturnInfo/assets/69956389/7da11395-6010-420b-9ac5-9c582e65a131)
+![커뮤니티_오타_수정 (1)](https://github.com/EternalReturnInfo/EternalReuturnInfo/assets/81561579/482fbb83-dc4b-4881-ab5a-bc3147f0993c)
+
 
 
 # 🎧 팀 소개
