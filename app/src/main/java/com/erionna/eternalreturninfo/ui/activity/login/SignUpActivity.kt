@@ -68,10 +68,10 @@ class SignUpActivity : AppCompatActivity() {
 
         binding.signupBtnIDCheck.setOnClickListener {
             var email = binding.signupIDEt.text.toString()
-            Log.d("이메일중복",email)
-            if(email.isNotEmpty()){
+            Log.d("이메일중복", email)
+            if (email.isNotEmpty()) {
                 EmailCheck(email)
-            }else{
+            } else {
                 Toast.makeText(this, "이메일을 입력하세요", Toast.LENGTH_SHORT).show()
             }
         }
@@ -157,9 +157,16 @@ class SignUpActivity : AppCompatActivity() {
                                 if (imageCheck) {
                                     upload(selectedImageURI, email)
                                 }
-                                var intent = Intent(this, MainActivity::class.java)
-                                startActivity(intent)
-                                finish()
+
+                                /**
+                                 * 파이어베이스 보안규칙 적용 후,
+                                 * 바로 데이터를 읽을 수 없는 이슈로 인해
+                                 * 회원가입 후 메인화면이 아닌 로그인 화면으로 돌아가는 코드로 수정했습니다.
+                                 */
+//                                var intent = Intent(this, MainActivity::class.java)
+//                                startActivity(intent)
+//                                auth.signOut()
+                                  finish()
                             } else {
                                 MotionToast.darkColorToast(
                                     this, "", "계정 생성 실패",
