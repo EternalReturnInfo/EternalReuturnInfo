@@ -61,7 +61,12 @@ object BoardSingletone {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                /**
+                 * 회원탈퇴 시 런타임에러 발생해서
+                 * 투두 코드 삭제
+                 */
+                Log.d("choco5732", "시즌ID 불러오기 실패")
+
             }
         })
 
