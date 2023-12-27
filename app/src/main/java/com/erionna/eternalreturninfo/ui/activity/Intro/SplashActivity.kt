@@ -6,11 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.ui.activity.login.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        val splashScreen = installSplashScreen()
+
+
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
@@ -21,17 +26,24 @@ class SplashActivity : AppCompatActivity() {
          * 버전별 실행코드 달리함.
          */
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
+//            Handler().postDelayed({
+//                val intent = Intent(this, LoginActivity::class.java)
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+//                startActivity(intent)
+//                finish()
+//            },2000)
+//        } else {
+//            val intent = Intent(this, LoginActivity::class.java)
+//            startActivity(intent)
+//            finish()
+
             Handler().postDelayed({
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 startActivity(intent)
                 finish()
-            },2000)
-        } else {
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
+            },1500)
+//        }
     }
 }

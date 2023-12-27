@@ -8,25 +8,23 @@
         <item name="windowNoTitle">true</item>
         <!-- white status bar -->
         <item name="android:windowLightStatusBar">true</item>
-<!--        <item name="android:windowIsTranslucent">true</item>-->
-
     </style>
+
+    <style name="Theme.EternalReturnInfo" parent="Base.Theme.EternalReturnInfo" />
 
     <style name="ThemeToolbar" parent="Theme.AppCompat.Light">
         <!-- color of the menu overflow icon -->
         <item name="android:textColorSecondary">@color/white</item>
     </style>
 
-
     <style name="Round" parent="">
         <item name="cornerSize">10%</item>
     </style>
 
-
-
-
-    <style name="Theme.EternalReturnInfo" parent="Base.Theme.EternalReturnInfo" />
-
-
-
+    <style name="AppTheme.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/black</item>
+        <item name="windowSplashScreenAnimatedIcon">@color/black</item>
+        <item name="windowSplashScreenAnimationDuration">0000</item>
+        <item name="postSplashScreenTheme">@style/Theme.EternalReturnInfo</item>
+    </style>
 </resources>

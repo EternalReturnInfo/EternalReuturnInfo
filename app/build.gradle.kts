@@ -125,4 +125,7 @@ dependencies {
 
     // MotionToast
     implementation("com.github.Spikeysanju:MotionToast:1.4")
+
+    // Splash API
+    implementation("androidx.core:core-splashscreen:1.0.0-rc01")
 }
