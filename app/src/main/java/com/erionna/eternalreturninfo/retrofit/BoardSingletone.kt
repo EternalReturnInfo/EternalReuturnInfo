@@ -43,7 +43,7 @@ object BoardSingletone {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    // 파이어베이스 규칙 바꾸고 로그아웃하면 한번씩 앱 팅겨서 아래 코드 추가햇습니다!
+                    // 파이어베이스 규칙 적용 후, 로그아웃 시 간헐적으로 팅김 방지용 코드입니다!
                     Log.d("choco5732 BoardSingletone", error.message)
                 }
             })
