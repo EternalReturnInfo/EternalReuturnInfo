@@ -1,5 +1,6 @@
 package com.erionna.eternalreturninfo.ui.adapter.chat
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -98,7 +99,7 @@ class ChatAdapter(
                         }
                     }
                     override fun onCancelled(error: DatabaseError) {
-                        TODO("Not yet implemented")
+                        Log.d("choco5732 chatAdapter", error.message)
                     }
                 })
 
