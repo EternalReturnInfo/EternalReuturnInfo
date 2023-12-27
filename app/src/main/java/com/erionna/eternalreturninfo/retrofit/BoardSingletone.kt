@@ -43,7 +43,8 @@ object BoardSingletone {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    // 파이어베이스 규칙 바꾸고 로그아웃하면 한번씩 앱 팅겨서 아래 코드 추가했어요!
+                    Log.d("choco5732 BoardSingletone", error.message)
                 }
             })
         }
