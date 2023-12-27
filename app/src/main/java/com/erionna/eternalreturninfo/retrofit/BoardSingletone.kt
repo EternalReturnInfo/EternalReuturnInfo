@@ -43,7 +43,8 @@ object BoardSingletone {
                 }
 
                 override fun onCancelled(error: DatabaseError) {
-                    TODO("Not yet implemented")
+                    // 파이어베이스 규칙 적용 후, 로그아웃 시 간헐적으로 팅김 방지용 코드입니다!
+                    Log.d("choco5732 BoardSingletone", error.message)
                 }
             })
         }
@@ -61,7 +62,12 @@ object BoardSingletone {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                /**
+                 * 회원탈퇴 시 런타임에러 발생해서
+                 * 투두 코드 삭제
+                 */
+                Log.d("choco5732", "시즌ID 불러오기 실패")
+
             }
         })
 
