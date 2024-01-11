@@ -39,6 +39,8 @@ class FindDuoFragment : Fragment() {
     private lateinit var mAuth: FirebaseAuth
     private var mUID = ""
     private lateinit var findduoPopupWindow: FindduoPopupWindow
+    private lateinit var refDb: DatabaseReference
+    private lateinit var refEventListener: ValueEventListener
 
 
     private val adapter: FindduoAdapter by lazy {
@@ -113,8 +115,8 @@ class FindDuoFragment : Fragment() {
     private fun loadAllUserDataFromFirebase() {
         val databasePath = "user"
 
-        mDbRef.child(databasePath).orderByChild("timestamp")
-            .addValueEventListener(object : ValueEventListener {
+        refDb = mDbRef.child(databasePath)
+        refEventListener = object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     val filteredUsersList = ArrayList<ERModel>()
 
@@ -149,7 +151,9 @@ class FindDuoFragment : Fragment() {
                 override fun onCancelled(error: DatabaseError) {
                     Log.e(TAG, "Data retrieval failed: $error")
                 }
-            })
+            }
+
+        refDb.orderByChild("timestamp").addValueEventListener(refEventListener)
     }
 
     private fun deleteSpecificFieldsFromDatabase(item: ERModel) {
@@ -171,6 +175,11 @@ class FindDuoFragment : Fragment() {
         }
 
         alertDialog.show()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        refDb.removeEventListener(refEventListener)
     }
 
     private fun deleteItem(item: ERModel) {

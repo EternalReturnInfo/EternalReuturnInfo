@@ -138,7 +138,6 @@ class ChatListFragment : Fragment() {
         database = Firebase.database.reference
         refDb = database.child("user")
         refEventListener = object : ValueEventListener {
-//        database.child("user").addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 // 리스트 초기화 for 회원가입시 리스트 중복추가 문제 해결
