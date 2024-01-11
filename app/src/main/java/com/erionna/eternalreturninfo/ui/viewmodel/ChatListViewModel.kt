@@ -23,8 +23,7 @@ class ChatListViewModel(
     }
 
     fun clearList() {
-        val currentList = list.value.orEmpty().toMutableList()
-        _list.value = currentList
+        _list.value = repository.clearList()
     }
 
     fun modifyItemForCallBack(position: Int, message: String, time: String) {
