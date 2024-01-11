@@ -1,5 +1,6 @@
 package com.erionna.eternalreturninfo.data.repository
 
+import android.util.Log
 import com.erionna.eternalreturninfo.model.ERModel
 import com.erionna.eternalreturninfo.ui.repository.ChatListRepository
 import java.util.concurrent.atomic.AtomicLong
@@ -62,8 +63,25 @@ class ChatListRepositoryImpl(
         return list
     }
 
-    override fun modifyItemForCallBack() {
-        TODO("Not yet implemented")
+    override fun modifyItemForCallBack(
+        position: Int,
+        message: String,
+        time: String
+    ): List<ERModel> {
+
+        list[position].msg = message
+
+        val sb = StringBuilder()
+        if (time != "") {
+            sb.append(time)
+            list[position].time = sb.substring(0,13)
+        } else {
+            list[position].time = ""
+        }
+
+        Log.d("choco5733 : 뷰모델 ", "${list[position]}")
+
+        return list
     }
 
     override fun modifyItemForChatList() {

@@ -27,22 +27,7 @@ class ChatListViewModel(
     }
 
     fun modifyItemForCallBack(position: Int, message: String, time: String) {
-        val currentList = list.value.orEmpty().toMutableList()
-
-        currentList[position].msg = message
-
-        val sb = StringBuilder()
-        if (time != "") {
-            sb.append(time)
-            currentList[position].time = sb.substring(0,13)
-        } else {
-            currentList[position].time = ""
-        }
-
-        Log.d("choco5733 : 뷰모델 ", "${currentList[position]}")
-
-        _list.value = currentList
-
+        _list.value = repository.modifyItemForCallBack(position, message, time)
     }
 
     fun modifyItemForChatList(item: ERModel?) {
