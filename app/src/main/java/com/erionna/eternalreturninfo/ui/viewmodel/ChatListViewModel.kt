@@ -31,39 +31,7 @@ class ChatListViewModel(
     }
 
     fun modifyItemForChatList(item: ERModel?) {
-        fun findIndex(item: ERModel?): Int {
-            val currentList = list.value.orEmpty().toMutableList()
-            val findER = currentList.find{
-                it.name == item?.name
-            }
-            return currentList.indexOf(findER)
-        }
-
-        if (item == null) {
-            return
-        }
-
-        // position 이 null 이면 indexOf 실시
-        val findPosition = findIndex(item)
-
-        if (findPosition < 0) {
-            return
-        }
-
-        val sb = StringBuilder()
-        var time = ""
-        if (item.time != "") {
-            sb.append(item.time )
-            time = sb.substring(0,13)
-        } else {
-            time = ""
-        }
-
-
-        val currentList = list.value.orEmpty().toMutableList()
-        currentList[findPosition] = item.copy(time = time)
-        _list.value = currentList
-
+        _list.value = repository.modifyItemForChatList(item)
     }
 }
 

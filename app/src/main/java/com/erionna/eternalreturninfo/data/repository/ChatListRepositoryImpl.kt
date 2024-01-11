@@ -84,7 +84,38 @@ class ChatListRepositoryImpl(
         return list
     }
 
-    override fun modifyItemForChatList() {
-        TODO("Not yet implemented")
+
+    override fun modifyItemForChatList(item: ERModel?): List<ERModel> {
+
+        fun findIndex(item: ERModel?): Int {
+            val findER = list.find{
+                it.name == item?.name
+            }
+            return list.indexOf(findER)
+        }
+
+        if (item == null) {
+            return list
+        }
+
+        // position 이 null 이면 indexOf 실시
+        val findPosition = findIndex(item)
+
+        if (findPosition < 0) {
+            return list
+        }
+
+        val sb = StringBuilder()
+        var time = ""
+        if (item.time != "") {
+            sb.append(item.time )
+            time = sb.substring(0,13)
+        } else {
+            time = ""
+        }
+
+
+        list[findPosition] = item.copy(time = time)
+        return list
     }
 }
