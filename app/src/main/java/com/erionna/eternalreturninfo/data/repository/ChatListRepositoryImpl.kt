@@ -57,12 +57,9 @@ class ChatListRepositoryImpl(
         return list
     }
 
-    override fun currentList() {
-        TODO("Not yet implemented")
-    }
-
-    override fun clearList() {
-        TODO("Not yet implemented")
+    override fun clearList() : MutableList<ERModel> {
+        list.clear()
+        return list
     }
 
     override fun modifyItemForCallBack() {

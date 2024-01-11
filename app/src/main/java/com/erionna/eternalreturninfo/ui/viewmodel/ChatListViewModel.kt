@@ -22,13 +22,8 @@ class ChatListViewModel(
         _list.value = repository.addUser(item)
     }
 
-    fun currentList(): List<ERModel> {
-        return list.value.orEmpty().toMutableList()
-    }
-
     fun clearList() {
         val currentList = list.value.orEmpty().toMutableList()
-        currentList.clear()
         _list.value = currentList
     }
 

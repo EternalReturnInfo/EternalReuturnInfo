@@ -41,6 +41,8 @@ class ChatListFragment : Fragment() {
 
     private var auth = Firebase.auth
     private lateinit var database: DatabaseReference
+    private lateinit var refEventListener: ValueEventListener
+    private lateinit var refDb: DatabaseReference
 
     private val chatListAdapter by lazy {
         ChatListAdapter(
@@ -85,6 +87,11 @@ class ChatListFragment : Fragment() {
         super.onDestroyView()
     }
 
+    override fun onPause() {
+        super.onPause()
+        refDb.removeEventListener(refEventListener)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -107,7 +114,6 @@ class ChatListFragment : Fragment() {
         chatListRecyclerview.layoutManager = LinearLayoutManager(context)
         chatListRecyclerview.itemAnimator = null
 
-        Log.d("choco5744", "${viewModel.currentList()}")
 
         database = Firebase.database.reference
 
@@ -120,9 +126,6 @@ class ChatListFragment : Fragment() {
             }
         }
 
-
-
-
     }
 
     private fun initModel() = with(viewModel) {
@@ -133,8 +136,9 @@ class ChatListFragment : Fragment() {
 
     private fun addChatList() {
         database = Firebase.database.reference
-
-        database.child("user").addValueEventListener(object : ValueEventListener {
+        refDb = database.child("user")
+        refEventListener = object : ValueEventListener {
+//        database.child("user").addValueEventListener(object : ValueEventListener {
 
             override fun onDataChange(snapshot: DataSnapshot) {
                 // 리스트 초기화 for 회원가입시 리스트 중복추가 문제 해결
@@ -206,6 +210,7 @@ class ChatListFragment : Fragment() {
                 Log.e("choco5733", error.message)
             }
 
-        })
+        }
+        refDb.addValueEventListener(refEventListener)
     }
 }
