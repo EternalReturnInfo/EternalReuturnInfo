@@ -2,7 +2,7 @@ package com.erionna.eternalreturninfo.data.repository
 
 import android.util.Log
 import com.erionna.eternalreturninfo.model.ERModel
-import com.erionna.eternalreturninfo.ui.repository.ChatListRepository
+import com.erionna.eternalreturninfo.presentation.repository.ChatListRepository
 import java.util.concurrent.atomic.AtomicLong
 
 class ChatListRepositoryImpl(
@@ -55,12 +55,12 @@ class ChatListRepositoryImpl(
                 )
             }
         }
-        return list
+        return ArrayList<ERModel>(list)
     }
 
     override fun clearList() : MutableList<ERModel> {
         list.clear()
-        return list
+        return ArrayList<ERModel>(list)
     }
 
     override fun modifyItemForCallBack(
@@ -81,7 +81,7 @@ class ChatListRepositoryImpl(
 
         Log.d("choco5733 : 뷰모델 ", "${list[position]}")
 
-        return list
+        return ArrayList<ERModel>(list)
     }
 
 
@@ -116,6 +116,6 @@ class ChatListRepositoryImpl(
 
 
         list[findPosition] = item.copy(time = time)
-        return list
+        return ArrayList<ERModel>(list)
     }
 }

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/shape_board_dialog"
-    tools:context=".ui.fragment.findduo.FindduoPopupWindow">
+    tools:context=".presentation.fragment.findduo.FindduoPopupWindow">
 
     <TextView
         android:id="@+id/textView3"

@@ -17,34 +17,34 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.fragment.findduo.FindduoPopupWindow"
+            android:name=".presentation.fragment.findduo.FindduoPopupWindow"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.main.WebView"
+            android:name=".presentation.activity.main.WebView"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.board.BoardDeletedActivity"
+            android:name=".presentation.activity.board.BoardDeletedActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.board.BoardSearchActivity"
+            android:name=".presentation.activity.board.BoardSearchActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.board.BoardUpdateActivity"
+            android:name=".presentation.activity.board.BoardUpdateActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.board.BoardPostActivity"
+            android:name=".presentation.activity.board.BoardPostActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.board.BoardAddActivity"
+            android:name=".presentation.activity.board.BoardAddActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.chat.ChatActivity2"
+            android:name=".presentation.activity.chat.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.main.MainActivity"
+            android:name=".presentation.activity.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.Intro.SplashActivity"
+            android:name=".presentation.activity.Intro.SplashActivity"
             android:exported="true"
             android:theme="@style/AppTheme.Starting">
             <intent-filter>
@@ -54,10 +54,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.login.SignUpActivity"
+            android:name=".presentation.activity.login.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activity.login.LoginActivity"
+            android:name=".presentation.activity.login.LoginActivity"
             android:exported="false" />
     </application>
 
