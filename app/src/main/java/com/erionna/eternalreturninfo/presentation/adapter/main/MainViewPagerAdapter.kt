@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.erionna.eternalreturninfo.R
-import com.erionna.eternalreturninfo.model.MainTabs
+import com.erionna.eternalreturninfo.data.model.MainTabs
 import com.erionna.eternalreturninfo.presentation.fragment.board.BoardFragment
 import com.erionna.eternalreturninfo.presentation.fragment.chat.ChatListFragment
 import com.erionna.eternalreturninfo.presentation.fragment.myprofile.MyProfileFragment

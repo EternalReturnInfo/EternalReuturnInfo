@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.BoardAddActivityBinding
-import com.erionna.eternalreturninfo.model.BoardModel
+import com.erionna.eternalreturninfo.data.model.BoardModel
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.FBRef
 import www.sanju.motiontoast.MotionToast

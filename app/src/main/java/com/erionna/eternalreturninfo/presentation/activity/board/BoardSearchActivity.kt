@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.BoardSearchActivityBinding
-import com.erionna.eternalreturninfo.model.BoardModel
+import com.erionna.eternalreturninfo.data.model.BoardModel
 import com.erionna.eternalreturninfo.retrofit.FBRef
 import com.erionna.eternalreturninfo.presentation.adapter.board.BoardRecyclerViewAdapter
 import com.erionna.eternalreturninfo.presentation.viewmodel.BoardListViewModel

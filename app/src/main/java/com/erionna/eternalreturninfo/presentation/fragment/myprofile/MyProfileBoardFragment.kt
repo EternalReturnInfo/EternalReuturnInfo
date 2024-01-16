@@ -13,7 +13,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erionna.eternalreturninfo.databinding.MyprofileBoardRvFragmentBinding
-import com.erionna.eternalreturninfo.model.BoardModel
+import com.erionna.eternalreturninfo.data.model.BoardModel
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.FBRef
 import com.erionna.eternalreturninfo.presentation.activity.board.BoardDeletedActivity

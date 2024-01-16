@@ -1,4 +1,4 @@
-package com.erionna.eternalreturninfo.model
+package com.erionna.eternalreturninfo.data.model
 
 import com.google.firebase.database.Exclude
 import com.google.firebase.database.IgnoreExtraProperties

@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.erionna.eternalreturninfo.databinding.MainRvVideoBinding
-import com.erionna.eternalreturninfo.model.VideoModel
+import com.erionna.eternalreturninfo.data.model.VideoModel
 
 
 class VideoListAdapter :

@@ -13,7 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.FindDuoFragmentBinding
-import com.erionna.eternalreturninfo.model.ERModel
+import com.erionna.eternalreturninfo.data.model.ERModel
 import com.erionna.eternalreturninfo.presentation.activity.main.MainActivity
 import com.erionna.eternalreturninfo.presentation.activity.board.BoardDialog
 import com.erionna.eternalreturninfo.presentation.activity.board.DialogListener

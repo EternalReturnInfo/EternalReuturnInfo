@@ -1,6 +1,6 @@
 package com.erionna.eternalreturninfo.presentation.repository
 
-import com.erionna.eternalreturninfo.model.Message
+import com.erionna.eternalreturninfo.data.model.Message
 
 interface ChatRepository {
     fun addItem(message: Message?) : List<Message>

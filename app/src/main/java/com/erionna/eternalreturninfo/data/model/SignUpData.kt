@@ -1,4 +1,4 @@
-package com.erionna.eternalreturninfo.model
+package com.erionna.eternalreturninfo.data.model
 
 data class SignUpData(
     val email:String,

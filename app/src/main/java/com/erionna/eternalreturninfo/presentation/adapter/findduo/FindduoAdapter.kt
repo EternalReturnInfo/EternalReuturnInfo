@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.FindDuoListItemBinding
-import com.erionna.eternalreturninfo.model.ERModel
+import com.erionna.eternalreturninfo.data.model.ERModel
 import com.erionna.eternalreturninfo.retrofit.RetrofitInstance
 import com.erionna.eternalreturninfo.util.Constants
 import kotlinx.coroutines.Dispatchers

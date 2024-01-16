@@ -4,8 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.erionna.eternalreturninfo.model.BoardModel
-import com.erionna.eternalreturninfo.model.CommentModel
+import com.erionna.eternalreturninfo.data.model.BoardModel
+import com.erionna.eternalreturninfo.data.model.CommentModel
 import com.erionna.eternalreturninfo.retrofit.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

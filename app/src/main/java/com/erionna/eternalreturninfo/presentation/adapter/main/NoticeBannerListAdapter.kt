@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.erionna.eternalreturninfo.databinding.MainRvBannerBinding
-import com.erionna.eternalreturninfo.model.Notice
+import com.erionna.eternalreturninfo.data.model.Notice
 
 
 class NoticeBannerListAdapter :

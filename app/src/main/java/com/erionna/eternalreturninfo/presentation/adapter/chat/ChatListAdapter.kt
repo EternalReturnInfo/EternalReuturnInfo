@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.erionna.eternalreturninfo.data.model.ERModel
 import com.erionna.eternalreturninfo.databinding.ChatListItemBinding
-import com.erionna.eternalreturninfo.model.ERModel
 
 class ChatListAdapter(
     private val onClickItem: (Int, ERModel) -> Unit
@@ -42,7 +42,7 @@ class ChatListAdapter(
         holder.bind(item)
     }
 
-   class ViewHolder(
+    class ViewHolder(
         private val binding: ChatListItemBinding,
         private val onClickItem: (Int, ERModel) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {

@@ -11,8 +11,8 @@ import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erionna.eternalreturninfo.databinding.ChatActivityBinding
-import com.erionna.eternalreturninfo.model.ERModel
-import com.erionna.eternalreturninfo.model.Message
+import com.erionna.eternalreturninfo.data.model.ERModel
+import com.erionna.eternalreturninfo.data.model.Message
 import com.erionna.eternalreturninfo.presentation.adapter.chat.ChatAdapter2
 import com.erionna.eternalreturninfo.presentation.viewmodel.ChatViewModel
 import com.erionna.eternalreturninfo.presentation.viewmodel.ChatViewModelFactory
@@ -136,122 +136,16 @@ class ChatActivity : AppCompatActivity() {
         binding = ChatActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initModel()
         initView()
+        initModel()
         saveChat()
         loadChat()
-
-//        // 채팅목록에서 전달받은 상대방 데이터 저장
-//        val data = intent.getParcelableExtra<ERModel>(EXTRA_ER_MODEL)
-//        Log.d("#choco5732", "$data")
-//
-//        // 툴바에 채팅상대 이름 출력하기
-//        binding.chatToolbarTitle.text = data?.name
-//
-//        receiverName = data?.name.toString()
-//        receiverUid = data?.uid.toString()
-//        Log.d("#choco5732", "receiverName : $receiverName  , receverUid = $receiverUid")
-//
-//        // 리사이클러뷰 초기화
-//        binding.chatRecycler.adapter = chatAdapter2
-//        binding.chatRecycler.layoutManager = LinearLayoutManager(this)
-//        binding.chatRecycler.itemAnimator = null
-//
-//        // 로그인 한 사용자 uid
-//        val senderUid = auth.currentUser?.uid
-//
-//        // 보낸이 방
-//        senderRoom = receiverUid + senderUid
-//        // 받는이 방
-//        receiverRoom = senderUid + receiverUid
-//        Log.d("#choco5732", "senderRoom : $senderRoom")
-//
-//        // 메시지 저장하기
-//        binding.chatSendBtn.setOnClickListener {
-//            val time = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy년 MM월 dd일 a hh시 mm분"))
-//            } else {
-//                TODO("VERSION.SDK_INT < O")
-//            }
-//
-//            // et에 입력한 메시지
-//            val message = binding.chatMsgEt.text.toString()
-//            val messageObject = Message(id = "${idGenerate.getAndIncrement()}" + time, message = message , sendId = senderUid, time = time, receiverId = receiverUid, readOrNot = false)
-//            if (message != "") {
-//                // 송수신 방 둘 다 저장
-//                database.child("chats").child(senderRoom).child("messages").push()
-//                    .setValue(messageObject).addOnSuccessListener {
-//                        database.child("chats").child(receiverRoom).child("messages").push()
-//                            .setValue(messageObject)
-//                    }
-//
-//                // 메시지 전송 후 EditText 공백 처리
-//                binding.chatMsgEt.setText("")
-//
-//            }
-//        }
-//        var finalMessage = ""
-//        var finalTime = ""
-//
-//        // 메시지 가져오기
-//        database.child("chats").child(senderRoom).child("messages")
-//            .addValueEventListener(object : ValueEventListener {
-//                override fun onDataChange(snapShot: DataSnapshot) {
-//                    // 새로운 메시지 송, 수신시 최하단 화면으로 이동
-////                    binding.chatRecycler.scrollToPosition(messageList.size)
-//                    binding.chatRecycler.scrollToPosition(viewModel.getListSize())
-//
-//                    viewModel.clearList()
-//                    messageList.clear()
-//
-//
-//                    for (postSnapshot in snapShot.children) {
-//                        val message = postSnapshot.getValue(Message::class.java)
-//                        messageList.add(message!!)
-//                        viewModel.addItem(message)
-//                        // 새로운 메시지 송, 수신시 최하단 화면으로 이동
-//                        binding.chatRecycler.scrollToPosition(viewModel.getListSize() - 1)
-//
-//                        finalMessage = messageList.last().message.toString()
-//                        finalTime = messageList.last().time.toString()
-//
-//                        // 가져왔을 시 readOrNot을 true로 변경
-//                        val map = HashMap<String, Any>()
-//                        map.put("readOrNot", true)
-//
-//                        val key = postSnapshot.key
-//                        database.child("chats").child(senderRoom)
-//                            .child("messages").child("$key").updateChildren(map)
-//                    }
-//                    Log.d("choco5744","message : ${finalMessage}, time : ${finalTime}")
-//
-//                    val intent = Intent().apply {
-//                        putExtra(
-//                            EXTRA_MESSAGE,
-//                            finalMessage
-//                        )
-//                        putExtra(
-//                            EXTRA_TIME,
-//                            finalTime
-//                        )
-//                        putExtra(
-//                            EXTRA_ER_POSITION,
-//                            position
-//                        )
-//                    }
-//                    setResult(Activity.RESULT_OK, intent)
-////                    chatAdapter2.notifyDataSetChanged()
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    TODO("Not yet implemented")
-//                }
-//            })
     }
 
     // observe 대상
     // fragment : viewLifeCycleOwner
     // activity : this
+
     private fun initModel() = with(viewModel) {
         list.observe(this@ChatActivity){
             chatAdapter2.submitList(it)

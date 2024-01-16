@@ -12,8 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.BoardPostRvCommentItemBinding
-import com.erionna.eternalreturninfo.model.CommentModel
-import com.erionna.eternalreturninfo.model.ERModel
+import com.erionna.eternalreturninfo.data.model.CommentModel
+import com.erionna.eternalreturninfo.data.model.ERModel
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.FBRef
 import com.erionna.eternalreturninfo.presentation.activity.board.BoardDialog

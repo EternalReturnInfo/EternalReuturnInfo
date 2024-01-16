@@ -1,6 +1,6 @@
 package com.erionna.eternalreturninfo.data.repository
 
-import com.erionna.eternalreturninfo.model.Message
+import com.erionna.eternalreturninfo.data.model.Message
 import com.erionna.eternalreturninfo.presentation.repository.ChatRepository
 
 class ChatRepositoryImpl() : ChatRepository {

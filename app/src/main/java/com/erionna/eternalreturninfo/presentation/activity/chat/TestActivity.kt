@@ -10,8 +10,8 @@ import android.util.Log
 import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erionna.eternalreturninfo.databinding.ChatActivityBinding
-import com.erionna.eternalreturninfo.model.ERModel
-import com.erionna.eternalreturninfo.model.Message
+import com.erionna.eternalreturninfo.data.model.ERModel
+import com.erionna.eternalreturninfo.data.model.Message
 import com.erionna.eternalreturninfo.presentation.adapter.chat.ChatAdapter
 import com.erionna.eternalreturninfo.util.Constants.Companion.EXTRA_ER_MODEL
 import com.erionna.eternalreturninfo.util.Constants.Companion.EXTRA_ER_POSITION

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.erionna.eternalreturninfo.databinding.ChatItemReceiverBinding
 import com.erionna.eternalreturninfo.databinding.ChatItemSenderBinding
-import com.erionna.eternalreturninfo.model.Message
+import com.erionna.eternalreturninfo.data.model.Message
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

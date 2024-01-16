@@ -1,6 +1,6 @@
 package com.erionna.eternalreturninfo.presentation.repository
 
-import com.erionna.eternalreturninfo.model.ERModel
+import com.erionna.eternalreturninfo.data.model.ERModel
 
 interface ChatListRepository {
     fun addUser(item: ERModel?) : List<ERModel>

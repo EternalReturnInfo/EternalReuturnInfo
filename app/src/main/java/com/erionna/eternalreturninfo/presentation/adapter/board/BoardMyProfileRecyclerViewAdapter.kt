@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.BoardMyProfileRvItemBinding
-import com.erionna.eternalreturninfo.model.BoardModel
-import com.erionna.eternalreturninfo.model.ERModel
+import com.erionna.eternalreturninfo.data.model.BoardModel
+import com.erionna.eternalreturninfo.data.model.ERModel
 import com.erionna.eternalreturninfo.retrofit.FBRef
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError

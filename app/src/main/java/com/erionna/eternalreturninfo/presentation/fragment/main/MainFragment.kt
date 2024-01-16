@@ -12,8 +12,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.erionna.eternalreturninfo.databinding.MainFragmentBinding
-import com.erionna.eternalreturninfo.model.Notice
-import com.erionna.eternalreturninfo.model.VideoModel
+import com.erionna.eternalreturninfo.data.model.Notice
+import com.erionna.eternalreturninfo.data.model.VideoModel
 import com.erionna.eternalreturninfo.presentation.activity.main.WebView
 import com.erionna.eternalreturninfo.presentation.adapter.main.NoticeBannerListAdapter
 import com.erionna.eternalreturninfo.presentation.adapter.main.VideoListAdapter

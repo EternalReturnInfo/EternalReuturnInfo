@@ -1,7 +1,7 @@
 package com.erionna.eternalreturninfo.data.repository
 
 import android.util.Log
-import com.erionna.eternalreturninfo.model.ERModel
+import com.erionna.eternalreturninfo.data.model.ERModel
 import com.erionna.eternalreturninfo.presentation.repository.ChatListRepository
 import java.util.concurrent.atomic.AtomicLong
 
@@ -35,25 +35,25 @@ class ChatListRepositoryImpl(
                 }
             }
             if (gotCha != true) {
-                 return list.apply {
+                 return ArrayList<ERModel>(list.apply {
                     add(
                         item.copy(
                             time = time
                         )
                     )
-                }
+                })
             }
 
         }
 
         else {
-            return list.apply {
+            return ArrayList<ERModel>(list.apply {
                 add(
                     item.copy(
                         time = time
                     )
                 )
-            }
+            })
         }
         return ArrayList<ERModel>(list)
     }

@@ -12,8 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.SignupInformationActivityBinding
-import com.erionna.eternalreturninfo.model.ERModel
-import com.erionna.eternalreturninfo.model.SignUpData
+import com.erionna.eternalreturninfo.data.model.ERModel
+import com.erionna.eternalreturninfo.data.model.SignUpData
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.RetrofitInstance
 import com.erionna.eternalreturninfo.util.Constants

@@ -1,7 +1,7 @@
 package com.erionna.eternalreturninfo.retrofit
 
 import android.util.Log
-import com.erionna.eternalreturninfo.model.ERModel
+import com.erionna.eternalreturninfo.data.model.ERModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -21,7 +21,7 @@ object BoardSingletone {
         return seasonID
     }
 
-    fun manager(): ERModel{
+    fun manager(): ERModel {
         return ERModel(uid="j2JTWMpZdEUWxao4mYoYC3Acheg1")
     }
 

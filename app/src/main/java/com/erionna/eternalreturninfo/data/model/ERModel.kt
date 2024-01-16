@@ -1,4 +1,4 @@
-package com.erionna.eternalreturninfo.model
+package com.erionna.eternalreturninfo.data.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

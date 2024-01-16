@@ -6,8 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.erionna.eternalreturninfo.model.Notice
-import com.erionna.eternalreturninfo.model.VideoModel
+import com.erionna.eternalreturninfo.data.model.Notice
+import com.erionna.eternalreturninfo.data.model.VideoModel
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.RetrofitInstance
 import com.erionna.eternalreturninfo.retrofit.UserStats
