@@ -1,7 +1,9 @@
 package com.erionna.eternalreturninfo.ui.adapter.chat
 
 
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -10,6 +12,10 @@ import com.erionna.eternalreturninfo.databinding.ChatItemReceiverBinding
 import com.erionna.eternalreturninfo.databinding.ChatItemSenderBinding
 import com.erionna.eternalreturninfo.model.Message
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 
 class ChatAdapter2(
     private val onClickItem: (Int) -> Unit
@@ -76,6 +82,7 @@ class ChatAdapter2(
         }
     }
 
+
     class SenderViewHolder(
         val binding: ChatItemSenderBinding,
         private val onClickItem: (Int) -> Unit
@@ -86,6 +93,31 @@ class ChatAdapter2(
             val time = sb.substring(14, 24)
             chatItemSenderDate.text = time
             chatItemSenderText.text = item.message
+
+            val database = FirebaseDatabase.getInstance().reference
+            var recevierRoom: String = item.sendId + item.receiverId
+
+            database.child("chats").child(recevierRoom).child("messages")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapShot: DataSnapshot) {
+                        var receiverReadOrNot: Boolean? = null
+                        for (child in snapShot.children) {
+                            val message = child.getValue(Message::class.java)
+                            if (message?.id == item.id) {
+                                receiverReadOrNot = message?.readOrNot
+                            }
+                        }
+                        if (receiverReadOrNot == false) {
+                            chatItemSenderReadCount.visibility = View.VISIBLE
+                        } else {
+                            chatItemSenderReadCount.visibility = View.GONE
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        Log.d("choco5732 chatAdapter", error.message)
+                    }
+                })
 
             chatItemSenderContainer.setOnClickListener {
                 onClickItem(
@@ -115,6 +147,46 @@ class ChatAdapter2(
         }
     }
 }
+
+//    class SenderViewHolder(
+//        val binding: ChatItemSenderBinding,
+//        private val onClickItem: (Int) -> Unit
+//    ) : RecyclerView.ViewHolder(binding.root) {
+//        fun bind(item: Message) = with(binding) {
+//            val sb = StringBuilder()
+//            sb.append(item.time)
+//            val time = sb.substring(14, 24)
+//            chatItemSenderDate.text = time
+//            chatItemSenderText.text = item.message
+//
+//            chatItemSenderContainer.setOnClickListener {
+//                onClickItem(
+//                    position
+//                )
+//            }
+//        }
+//    }
+//
+//    class ReceiverViewHolder(
+//        val binding: ChatItemReceiverBinding,
+//        private val onClickItem: (Int) -> Unit
+//    ) : RecyclerView.ViewHolder(binding.root) {
+//        fun bind(item: Message) = with(binding) {
+//            val sb = StringBuilder()
+//            sb.append(item.time)
+//            val time = sb.substring(14, 24)
+//
+//            chatItemRecevierDate.text = time
+//            chatItemReceiverText.text = item.message
+//
+//            chatItemReceiverContainer.setOnClickListener {
+//                onClickItem(
+//                    position
+//                )
+//            }
+//        }
+//    }
+//}
 
 //             기존 에러 코드
 //            database.child("chats").child(recevierRoom).child("messages")

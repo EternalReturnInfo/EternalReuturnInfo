@@ -130,8 +130,6 @@ class ChatActivity : AppCompatActivity() {
             refDb.removeEventListener(refEventListener)
             finish()
         }
-
-
     }
 
     private fun saveChat() {

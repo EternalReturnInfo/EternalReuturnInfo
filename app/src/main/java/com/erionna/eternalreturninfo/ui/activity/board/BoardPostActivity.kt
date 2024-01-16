@@ -19,7 +19,7 @@ import com.erionna.eternalreturninfo.model.CommentModel
 import com.erionna.eternalreturninfo.model.ERModel
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.FBRef
-import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity
+import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity2
 import com.erionna.eternalreturninfo.ui.adapter.board.BoardCommentRecyclerViewAdpater
 import com.erionna.eternalreturninfo.ui.viewmodel.BoardListViewModel
 import com.erionna.eternalreturninfo.ui.viewmodel.BoardListViewModelFactory
@@ -152,7 +152,7 @@ class BoardPostActivity : AppCompatActivity() {
                                         val customDialog = BoardDialog(this@BoardPostActivity, user?.name ?: "",object : DialogListener {
                                             override fun onOKButtonClicked() {
                                                 startActivity(
-                                                    ChatActivity.newIntent(
+                                                    ChatActivity2.newIntent(
                                                         this@BoardPostActivity,
                                                         ERModel(
                                                             uid = user?.uid,

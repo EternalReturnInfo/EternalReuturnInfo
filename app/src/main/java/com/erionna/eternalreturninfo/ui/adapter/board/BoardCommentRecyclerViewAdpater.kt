@@ -17,8 +17,8 @@ import com.erionna.eternalreturninfo.model.ERModel
 import com.erionna.eternalreturninfo.retrofit.BoardSingletone
 import com.erionna.eternalreturninfo.retrofit.FBRef
 import com.erionna.eternalreturninfo.ui.activity.board.BoardDialog
-import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity
 import com.erionna.eternalreturninfo.ui.activity.board.DialogListener
+import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity2
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
@@ -150,7 +150,7 @@ class BoardCommentRecyclerViewAdpater(
                             boardCommentIbProfile.setOnClickListener {
                                 val customDialog = BoardDialog(binding.root.context, author?.name.toString(), object : DialogListener {
                                     override fun onOKButtonClicked() {
-                                        val intent = ChatActivity.newIntent(binding.root.context,
+                                        val intent = ChatActivity2.newIntent(binding.root.context,
                                             ERModel(
                                                 uid = author?.uid,
                                                 profilePicture = author?.profilePicture,

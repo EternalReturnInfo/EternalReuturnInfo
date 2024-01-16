@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.erionna.eternalreturninfo.R
 import com.erionna.eternalreturninfo.databinding.FindDuoFragmentBinding
 import com.erionna.eternalreturninfo.model.ERModel
-import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity
 import com.erionna.eternalreturninfo.ui.activity.main.MainActivity
 import com.erionna.eternalreturninfo.ui.activity.board.BoardDialog
 import com.erionna.eternalreturninfo.ui.activity.board.DialogListener
+import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity2
 import com.erionna.eternalreturninfo.ui.adapter.findduo.FindduoAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -52,7 +52,7 @@ class FindDuoFragment : Fragment() {
                         DialogListener {
                         override fun onOKButtonClicked() {
                             startActivity(
-                                ChatActivity.newIntent(
+                                ChatActivity2.newIntent(
                                     requireContext(),
                                     item
                                 )

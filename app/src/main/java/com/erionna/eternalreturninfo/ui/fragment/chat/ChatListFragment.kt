@@ -76,6 +76,13 @@ class ChatListFragment : Fragment() {
             }
         }
 
+    override fun onStart() {
+        super.onStart()
+        initView()
+        initModel()
+        addChatList()
+    }
+
     override fun onResume() {
         chatListAdapter.notifyDataSetChanged()
         super.onResume()
@@ -99,12 +106,12 @@ class ChatListFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
-        initModel()
-        addChatList()
-    }
+//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//        initView()
+//        initModel()
+//        addChatList()
+//    }
 
     private fun initView() = with(binding) {
 
