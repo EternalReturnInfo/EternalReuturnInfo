@@ -33,6 +33,7 @@ class ChatListViewModel(
     fun modifyItemForChatList(item: ERModel?) {
         _list.value = repository.modifyItemForChatList(item)
     }
+
 }
 
 class ChatListViewModelFactory : ViewModelProvider.Factory {

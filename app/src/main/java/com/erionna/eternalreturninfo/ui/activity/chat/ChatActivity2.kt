@@ -74,6 +74,8 @@ class ChatActivity2 : AppCompatActivity() {
 
     // messageList
     private val messageList = ArrayList<Message>()
+
+    // AtomicLong
     private val idGenerate = AtomicLong(1L)
 
     // position

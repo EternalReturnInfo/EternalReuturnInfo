@@ -14,7 +14,7 @@ import coil.api.load
 import com.erionna.eternalreturninfo.databinding.ChatListFragmentBinding
 import com.erionna.eternalreturninfo.model.ERModel
 import com.erionna.eternalreturninfo.model.Message
-import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity
+import com.erionna.eternalreturninfo.ui.activity.chat.ChatActivity2
 import com.erionna.eternalreturninfo.ui.adapter.chat.ChatListAdapter
 import com.erionna.eternalreturninfo.ui.viewmodel.ChatListViewModel
 import com.erionna.eternalreturninfo.ui.viewmodel.ChatListViewModelFactory
@@ -47,9 +47,8 @@ class ChatListFragment : Fragment() {
     private val chatListAdapter by lazy {
         ChatListAdapter(
             onClickItem = { position, item ->
-                Log.d("choco5733 list", "$item")
                 chatLauncher.launch(
-                    ChatActivity.newIntentForModify(
+                    ChatActivity2.newIntentForModify(
                         requireContext(),
                         position,
                         item
