@@ -6,6 +6,7 @@ import com.erionna.eternalreturninfo.presentation.repository.ChatRepository
 class ChatRepositoryImpl() : ChatRepository {
 
     private val list = mutableListOf<Message>()
+
     override fun addItem(message: Message?): List<Message> {
         if (message == null) {
             return list

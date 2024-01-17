@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.InputMethodManager
+import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.erionna.eternalreturninfo.databinding.ChatActivityBinding
@@ -111,9 +112,20 @@ class ChatActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        refDb.removeEventListener(refEventListener)
+        viewModel.disconnectFirebase()
         finish()
         super.onBackPressed()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ChatActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        initView()
+        initModel()
+//        saveChat()
+        loadChat()
     }
 
     private fun initView() = with(binding) {
@@ -126,21 +138,11 @@ class ChatActivity : AppCompatActivity() {
 
         // 뒤로가기 클릭 시 채팅방에서 빠져나옴
         chatBackBtn.setOnClickListener{
-            refDb.removeEventListener(refEventListener)
+            viewModel.disconnectFirebase()
             finish()
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ChatActivityBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        initView()
-        initModel()
-        saveChat()
-        loadChat()
-    }
 
     // observe 대상
     // fragment : viewLifeCycleOwner
@@ -150,6 +152,21 @@ class ChatActivity : AppCompatActivity() {
         list.observe(this@ChatActivity){
             chatAdapter2.submitList(it)
         }
+        message.observe(this@ChatActivity){
+            binding.chatMsgEt.setText(it)
+        }
+        notify.observe(this@ChatActivity){
+            chatAdapter2.notifyDataSetChanged()
+        }
+        scroll.observe(this@ChatActivity){
+            binding.chatRecycler.scrollToPosition(getListSize() - 1)
+        }
+
+        binding.chatSendBtn.setOnClickListener {
+            saveChat(data?.uid.toString(), auth.uid.toString(), binding.chatMsgEt.text.toString())
+        }
+
+        loadChat(data?.name.toString(), data?.uid.toString(), auth.uid.toString())
     }
 
     private fun saveChat() {
