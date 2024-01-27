@@ -1,29 +1,18 @@
 package com.erionna.eternalreturninfo.presentation.fragment.chat
 
-import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.erionna.eternalreturninfo.databinding.ChatListFragmentBinding
-import com.erionna.eternalreturninfo.data.model.ERModel
 import com.erionna.eternalreturninfo.presentation.activity.chat.ChatActivity
 import com.erionna.eternalreturninfo.presentation.adapter.chat.ChatListAdapter
 import com.erionna.eternalreturninfo.presentation.viewmodel.ChatListViewModel
 import com.erionna.eternalreturninfo.presentation.viewmodel.ChatListViewModelFactory
-import com.erionna.eternalreturninfo.util.Constants.Companion.EXTRA_ER_MODEL
-import com.erionna.eternalreturninfo.util.Constants.Companion.EXTRA_ER_POSITION
-import com.erionna.eternalreturninfo.util.Constants.Companion.EXTRA_MESSAGE
-import com.erionna.eternalreturninfo.util.Constants.Companion.EXTRA_TIME
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.ktx.Firebase
 
 class ChatListFragment : Fragment() {
 
@@ -90,21 +79,15 @@ class ChatListFragment : Fragment() {
     }
 
     override fun onResume() {
-        chatListAdapter.notifyDataSetChanged()
         super.onResume()
+        initViewModel()
+        chatListAdapter.notifyDataSetChanged()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         viewModel.disconnectFirebase()
-//        activity?.supportFragmentManager?.beginTransaction()?.remove(this)?.commit()
     }
-
-//    override fun onStart() {
-//        super.onStart()
-//        initView()
-//        initViewModel()
-//    }
 
     override fun onDestroyView() {
         _binding = null

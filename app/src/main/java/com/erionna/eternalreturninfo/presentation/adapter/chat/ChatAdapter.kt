@@ -1,9 +1,12 @@
 package com.erionna.eternalreturninfo.presentation.adapter.chat
 
+
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.erionna.eternalreturninfo.databinding.ChatItemReceiverBinding
 import com.erionna.eternalreturninfo.databinding.ChatItemSenderBinding
@@ -15,9 +18,23 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class ChatAdapter(
-    private val messageList: ArrayList<Message>,
     private val onClickItem: (Int) -> Unit
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>(
+) : ListAdapter<Message, RecyclerView.ViewHolder>(
+    object : DiffUtil.ItemCallback<Message>() {
+        override fun areItemsTheSame(
+            oldItem: Message,
+            newItem: Message
+        ): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(
+            oldItem: Message,
+            newItem: Message
+        ): Boolean {
+            return oldItem == newItem
+        }
+    }
 ) {
     enum class ItemViewType {
         SENDER, RECEIVER
@@ -42,7 +59,7 @@ class ChatAdapter(
     override fun onBindViewHolder(
         holder: RecyclerView.ViewHolder, position: Int
     ) {
-        val item = messageList[position]
+        val item = getItem(position)
 
         if (holder.javaClass == SenderViewHolder::class.java) {
             holder as SenderViewHolder
@@ -56,7 +73,8 @@ class ChatAdapter(
     override fun getItemViewType(
         position: Int
     ): Int {
-        val currentMessage = messageList[position]
+        val currentMessage = getItem(position)
+        // 현재 메시지의 senduid와 접속자의 uid가 일치하면 전송모드, 불일치하면 수신모드
         return if (FirebaseAuth.getInstance().currentUser?.uid.equals(currentMessage.sendId)) {
             ItemViewType.SENDER.ordinal
         } else {
@@ -64,9 +82,6 @@ class ChatAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return messageList.size
-    }
 
     class SenderViewHolder(
         val binding: ChatItemSenderBinding,
@@ -98,6 +113,7 @@ class ChatAdapter(
                             chatItemSenderReadCount.visibility = View.GONE
                         }
                     }
+
                     override fun onCancelled(error: DatabaseError) {
                         Log.d("choco5732 chatAdapter", error.message)
                     }
