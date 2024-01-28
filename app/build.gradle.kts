@@ -20,8 +20,8 @@ android {
         applicationId = "com.irionna.eternalreturninfo"
         minSdk = 24
         targetSdk = 33
-        versionCode = 4
-        versionName = "1.3"
+        versionCode = 12
+        versionName = "1.12"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "google_Token",localProperties.getProperty("googleToken"))
@@ -93,7 +93,8 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.0")
     implementation("androidx.fragment:fragment-ktx:1.3.6")
     // firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
+//    implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.google.firebase:firebase-database-ktx")
