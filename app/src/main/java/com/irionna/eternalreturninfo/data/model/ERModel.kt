@@ -1,9 +1,13 @@
 package com.irionna.eternalreturninfo.data.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import androidx.annotation.Keep
+import kotlinx.parcelize.Parcelize
+
+//import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Keep
 data class ERModel (
     val id: Long? = null,
     var server: String? = null,

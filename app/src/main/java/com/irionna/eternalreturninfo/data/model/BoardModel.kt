@@ -1,9 +1,11 @@
 package com.irionna.eternalreturninfo.data.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Keep
 data class BoardModel (
     val id: String = "",
     val category:String = "",
@@ -16,6 +18,7 @@ data class BoardModel (
 ) : Parcelable
 
 @Parcelize
+@Keep
 data class CommentModel(
     val id: String = "",
     val author: String? = "",

@@ -109,7 +109,8 @@ class BoardCommentRecyclerViewAdpater(
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     if(snapshot.exists()){
-                        val author = snapshot.getValue<ERModel>()
+//                        val author = snapshot.getValue<ERModel>()
+                        val author = snapshot.getValue(ERModel::class.java)
 
                         boardCommentTvUser.text = author?.name
 

@@ -111,7 +111,8 @@ class BoardPostActivity : AppCompatActivity() {
                 progressbar(isLoading = true)
 
                 if(snapshot.exists()){
-                    board = snapshot.getValue<BoardModel>()
+//                    board = snapshot.getValue<BoardModel>()
+                    board = snapshot.getValue(BoardModel::class.java)
 
                     boardPostTvContent.text = board?.content
 //                    boardPostTvVisit.text = board?.views.toString()
@@ -129,16 +130,17 @@ class BoardPostActivity : AppCompatActivity() {
                         override fun onDataChange(snapshot: DataSnapshot) {
 
                             if(snapshot.exists()){
-                                val user = snapshot.getValue<ERModel>()
+//                                val user = snapshot.getValue<ERModel>()
+                                val user = snapshot.getValue(ERModel::class.java)
                                 boardPostTvUser.text = user?.name
 
-                                if(user?.profilePicture?.isEmpty() == true){
+                                if (user?.profilePicture?.isEmpty() == true){
                                     boardPostIbProfile.setImageResource(R.drawable.ic_xiuk)
-                                }else{
+                                } else {
                                     boardPostIbProfile.load(user?.profilePicture)
                                 }
 
-                                if(user?.uid == BoardSingletone.LoginUser().uid){
+                                if (user?.uid == BoardSingletone.LoginUser().uid){
                                     boardPostIbMenu.visibility = View.VISIBLE
 
                                     boardPostIbMenu.setOnClickListener {
@@ -180,9 +182,9 @@ class BoardPostActivity : AppCompatActivity() {
                             board?.date?.let { formatTimeOrDate(it) }
                     }
 
-                    if(board?.comments?.size == 0){
+                    if (board?.comments?.size == 0){
                         boardPostBtnComment.visibility = View.INVISIBLE
-                    }else{
+                    } else {
                         boardPostBtnComment.text = board?.comments?.size.toString()
 
                         val comments = board?.comments?.values?.toList()

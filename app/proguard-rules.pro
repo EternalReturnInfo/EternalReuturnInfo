@@ -36,6 +36,16 @@
 -keepclassmembers class com.irionna.eternalreturninfo.data.models.** {
   *;
 }
+-keepclassmembers class com.irionna.eternalreturninfo.models.** {
+  *;
+}
+-keepclassmembers class com.irionna.data.models.** {
+  *;
+}
+-keepclassmembers class com.irionna.models.** {
+  *;
+}
+
 
 -keep class com.irionna.eternalreturninfo.model.** { *; }
 

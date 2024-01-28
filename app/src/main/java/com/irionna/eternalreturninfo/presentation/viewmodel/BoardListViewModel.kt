@@ -32,7 +32,8 @@ class BoardListViewModel() : ViewModel(){
             override fun onDataChange(snapshot: DataSnapshot) {
                 val unsortedBoardList = mutableListOf<BoardModel>()
                 for (data in snapshot.children) {
-                    val board = data.getValue<BoardModel>()
+//                    val board = data.getValue<BoardModel>()
+                    val board = data.getValue(BoardModel::class.java)
                     if (board != null) {
                         unsortedBoardList.add(board)
                     }

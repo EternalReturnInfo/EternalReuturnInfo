@@ -1,6 +1,8 @@
 package com.irionna.eternalreturninfo.data.model
 
-data class Message(
+import androidx.annotation.Keep
+
+@Keep data class Message(
     val id: String? = null,
     var message: String? = null,
     var sendId: String? = null,

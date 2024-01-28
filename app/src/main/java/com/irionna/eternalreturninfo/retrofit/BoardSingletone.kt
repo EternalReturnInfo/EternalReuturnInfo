@@ -1,6 +1,7 @@
 package com.irionna.eternalreturninfo.retrofit
 
 import android.util.Log
+import androidx.annotation.Keep
 import com.irionna.eternalreturninfo.data.model.ERModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -8,7 +9,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
 
-object BoardSingletone {
+@Keep object BoardSingletone {
 
     private var loginUser: ERModel = ERModel()
     private var seasonID: String = ""
@@ -34,7 +35,8 @@ object BoardSingletone {
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     if (snapshot.exists()) {
-                        val user = snapshot.getValue<ERModel>()
+//                        val user = snapshot.getValue<ERModel>()
+                        val user = snapshot.getValue(ERModel::class.java)
                         if (user != null) {
                             loginUser = user
                             Log.d("user.name",user.name.toString())
@@ -53,7 +55,8 @@ object BoardSingletone {
             override fun onDataChange(snapshot: DataSnapshot) {
 
                 if (snapshot.exists()) {
-                    val season = snapshot.getValue<String>()
+//                    val season = snapshot.getValue<String>()
+                    val season  = snapshot.getValue(String::class.java)
                     if (season != null) {
                         seasonID = season
                         Log.d("seasonID", season)

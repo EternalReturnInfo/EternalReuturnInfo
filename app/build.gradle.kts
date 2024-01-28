@@ -20,8 +20,8 @@ android {
         applicationId = "com.irionna.eternalreturninfo"
         minSdk = 24
         targetSdk = 33
-        versionCode = 12
-        versionName = "1.12"
+        versionCode = 23
+        versionName = "1.23"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "google_Token",localProperties.getProperty("googleToken"))
@@ -95,9 +95,9 @@ dependencies {
     // firebase
 //    implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-database-ktx")
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-firestore")
     // muddz

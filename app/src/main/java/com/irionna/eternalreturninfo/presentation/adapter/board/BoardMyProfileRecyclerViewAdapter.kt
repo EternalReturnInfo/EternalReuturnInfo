@@ -75,7 +75,8 @@ class BoardMyProfileRecyclerViewAdapter() : ListAdapter<BoardModel, BoardMyProfi
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     if(snapshot.exists()){
-                        val author = snapshot.getValue<ERModel>()
+//                        val author = snapshot.getValue<ERModel>()
+                        val author = snapshot.getValue(ERModel::class.java)
 
                         boardPostTvUser.text = author?.name
                     }
