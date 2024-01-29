@@ -10,18 +10,18 @@ plugins {
 }
 
 android {
-    namespace = "com.erionna.eternalreturninfo"
+    namespace = "com.irionna.eternalreturninfo"
     compileSdk = 34
 
     val localProperties = Properties()
     localProperties.load(FileInputStream(rootProject.file("local.properties")))
 
     defaultConfig {
-        applicationId = "com.erionna.eternalreturninfo"
+        applicationId = "com.irionna.eternalreturninfo"
         minSdk = 24
         targetSdk = 33
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 24
+        versionName = "1.24"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "google_Token",localProperties.getProperty("googleToken"))
@@ -31,7 +31,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -93,10 +93,11 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.8.0")
     implementation("androidx.fragment:fragment-ktx:1.3.6")
     // firebase
-    implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-auth-ktx")
-    implementation("com.google.firebase:firebase-database-ktx")
+//    implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
+    implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
+    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-firestore")
     // muddz
@@ -128,4 +129,7 @@ dependencies {
 
     // Splash API
     implementation("androidx.core:core-splashscreen:1.0.0-rc01")
+
+    // reCaptcha for firebase auth issue
+    implementation ("com.google.android.recaptcha:recaptcha:18.4.0")
 }
