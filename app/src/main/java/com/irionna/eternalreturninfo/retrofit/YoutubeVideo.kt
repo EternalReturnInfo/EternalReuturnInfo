@@ -1,7 +1,9 @@
 package com.irionna.eternalreturninfo.retrofit
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class YoutubeVideo(
     @SerializedName("kind")
     val kind: String,
@@ -17,28 +19,28 @@ data class YoutubeVideo(
     val items: List<Items>?,
 )
 
-
+@Keep
 data class PageInfo(
     @SerializedName("totalResults")
     val totalResults: Int,
     @SerializedName("resultsPerPage")
     val resultsPerPage: Int
 )
-
+@Keep
 data class Items(
     @SerializedName("id")
     val id: Id,
     @SerializedName("snippet")
     val snippet: Snippet
 )
-
+@Keep
 data class Id(
     @SerializedName("kind")
     val kind: String,
     @SerializedName("videoId")
     val videoId: String
 )
-
+@Keep
 data class Snippet(
     @SerializedName("categoryId")
     val categoryId: String,
@@ -57,12 +59,12 @@ data class Snippet(
     @SerializedName("channelTitle")
     val channelTitle: String,
 )
-
+@Keep
 data class ThumbNail(
     @SerializedName("medium")
     val medium: Medium
 )
-
+@Keep
 data class Medium(
     @SerializedName("url")
     val url: String,
@@ -71,7 +73,7 @@ data class Medium(
     @SerializedName("height")
     val height: Int
 )
-
+@Keep
 data class YoutubeVideoInfo(
     @SerializedName("kind")
     val kind: String,
@@ -82,7 +84,7 @@ data class YoutubeVideoInfo(
     @SerializedName("nextPageToken")
     val nextPageToken: String?
 )
-
+@Keep
 data class TrendItem(
     @SerializedName("kind")
     val kind: String,
@@ -99,24 +101,24 @@ data class TrendItem(
     @SerializedName("statistics")
     val statistics: Statistics
 )
-
+@Keep
 data class ContentDetails(
     @SerializedName("duration")
     val duration: String
 )
-
+@Keep
 data class Statistics(
     @SerializedName("viewCount")
     val viewCount: String? = ""
 )
-
+@Keep
 data class ResponseModel(
     val per_page: Int,
     val current_page: Int,
     val total_page: Int,
     val articles: List<Article>
 )
-
+@Keep
 data class Article(
     val id: Int,
     val board_id: Int,
@@ -130,31 +132,31 @@ data class Article(
     val i18ns: Map<String, I18n>,
     val url: String
 )
-
+@Keep
 data class I18n(
     val locale: String,
     val title: String,
     val summary: String,
     val created_at_for_humans: String
 )
-
+@Keep
 data class UserResponse(
     val code: Int,
     val message: String,
     val user: User
 )
-
+@Keep
 data class User(
     val userNum: Long,
     val nickname: String
 )
-
+@Keep
 data class UserStatsResponse(
     val code: Int,
     val message: String,
     val userStats: List<UserStats>
 )
-
+@Keep
 data class UserStats(
     val seasonId: Int,
     val userNum: Int,
@@ -179,7 +181,7 @@ data class UserStats(
     val top7: Float,
     val characterStats: List<CharacterStats>
 )
-
+@Keep
 data class CharacterStats(
     val characterCode: Int,
     val totalGames: Long?,
