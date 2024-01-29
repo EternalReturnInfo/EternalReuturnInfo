@@ -28,36 +28,16 @@
 
 
 
-# Add this global rule
+##---------------Begin: proguard configuration for firebase  ----------
 -keepattributes Signature
 
-# This rule will properly ProGuard all the model classes in
-# the package com.irionna.eternalreturninfo.models.
--keepclassmembers class com.irionna.eternalreturninfo.data.models.** {
-  *;
-}
 -keepclassmembers class com.irionna.eternalreturninfo.models.** {
   *;
 }
--keepclassmembers class com.irionna.data.models.** {
-  *;
-}
--keepclassmembers class com.irionna.models.** {
-  *;
-}
+
+##---------------End: proguard configuration for firebase  ----------
 
 
--keep class com.irionna.eternalreturninfo.model.** { *; }
-
--keep class com.firebase.** { *; }
--keep class org.apache.** { *; }
--keepnames class com.fasterxml.jackson.** { *; }
--keepnames class javax.servlet.** { *; }
--keepnames class org.ietf.jgss.** { *; }
--dontwarn org.w3c.dom.**
--dontwarn org.joda.time.**
--dontwarn org.shaded.apache.**
--dontwarn org.ietf.jgss.**
 
 ##---------------Begin: proguard configuration for Gson  ----------
 # Gson uses generic type information stored in a class file when working with fields. Proguard
@@ -81,6 +61,8 @@
 -keep class * implements com.google.gson.JsonDeserializer
 
 ##---------------End: proguard configuration for Gson  ----------
+
+
 
 # Retrofit does reflection on generic parameters. InnerClasses is required to use Signature and
 # EnclosingMethod is required to use InnerClasses.

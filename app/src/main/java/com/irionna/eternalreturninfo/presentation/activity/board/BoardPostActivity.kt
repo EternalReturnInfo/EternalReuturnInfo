@@ -83,13 +83,13 @@ class BoardPostActivity : AppCompatActivity() {
         initModel()
     }
 
-    private fun progressbar(isLoading:Boolean){
+    private fun progressbar(isLoading: Boolean) {
 
-        if(isLoading){
+        if (isLoading) {
             binding.boardPostProgressbar.visibility = View.VISIBLE
             binding.boardPostCommentLayout.visibility = View.INVISIBLE
             binding.nestedScrollView.visibility = View.INVISIBLE
-        }else{
+        } else {
             binding.boardPostProgressbar.visibility = View.GONE
             binding.boardPostCommentLayout.visibility = View.VISIBLE
             binding.nestedScrollView.visibility = View.VISIBLE
@@ -97,7 +97,7 @@ class BoardPostActivity : AppCompatActivity() {
 
     }
 
-    private fun initDataload() = with(binding){
+    private fun initDataload() = with(binding) {
 
 
         boardPostRvComment.adapter = listAdapter
@@ -110,79 +110,83 @@ class BoardPostActivity : AppCompatActivity() {
 
                 progressbar(isLoading = true)
 
-                if(snapshot.exists()){
+                if (snapshot.exists()) {
 //                    board = snapshot.getValue<BoardModel>()
                     board = snapshot.getValue(BoardModel::class.java)
 
                     boardPostTvContent.text = board?.content
 //                    boardPostTvVisit.text = board?.views.toString()
 
-                    if(board?.category == "공지"){
+                    if (board?.category == "공지") {
                         boardPostTvTitle.text = board?.title
                         val blueColor = ContextCompat.getColor(binding.root.context, R.color.blue)
                         boardPostTvTitle.setTextColor(blueColor)
-                    }else{
+                    } else {
                         boardPostTvTitle.text = board?.title
                         boardPostTvTitle.setTextColor(Color.WHITE)
                     }
 
-                    FBRef.userRef.child(board?.author.toString()).addValueEventListener(object : ValueEventListener{
-                        override fun onDataChange(snapshot: DataSnapshot) {
+                    FBRef.userRef.child(board?.author.toString())
+                        .addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
 
-                            if(snapshot.exists()){
+                                if (snapshot.exists()) {
 //                                val user = snapshot.getValue<ERModel>()
-                                val user = snapshot.getValue(ERModel::class.java)
-                                boardPostTvUser.text = user?.name
+                                    val user = snapshot.getValue(ERModel::class.java)
+                                    boardPostTvUser.text = user?.name
 
-                                if (user?.profilePicture?.isEmpty() == true){
-                                    boardPostIbProfile.setImageResource(R.drawable.ic_xiuk)
-                                } else {
-                                    boardPostIbProfile.load(user?.profilePicture)
-                                }
-
-                                if (user?.uid == BoardSingletone.LoginUser().uid){
-                                    boardPostIbMenu.visibility = View.VISIBLE
-
-                                    boardPostIbMenu.setOnClickListener {
-                                        refPowerMenu.showAsDropDown(it)
+                                    if (user?.profilePicture?.isEmpty() == true) {
+                                        boardPostIbProfile.setImageResource(R.drawable.ic_xiuk)
+                                    } else {
+                                        boardPostIbProfile.load(user?.profilePicture)
                                     }
-                                } else {
-                                    boardPostIbMenu.visibility = View.INVISIBLE
 
-                                    boardPostIbProfile.setOnClickListener {
-                                        val customDialog = BoardDialog(this@BoardPostActivity, user?.name ?: "",object : DialogListener {
-                                            override fun onOKButtonClicked() {
-                                                startActivity(
-                                                    ChatActivity.newIntent(
-                                                        this@BoardPostActivity,
-                                                        ERModel(
-                                                            uid = user?.uid,
-                                                            profilePicture = user?.profilePicture,
-                                                            name = user?.name
+                                    if (user?.uid == BoardSingletone.LoginUser().uid) {
+                                        boardPostIbMenu.visibility = View.VISIBLE
+
+                                        boardPostIbMenu.setOnClickListener {
+                                            refPowerMenu.showAsDropDown(it)
+                                        }
+                                    } else {
+                                        boardPostIbMenu.visibility = View.INVISIBLE
+
+                                        boardPostIbProfile.setOnClickListener {
+                                            val customDialog = BoardDialog(
+                                                this@BoardPostActivity,
+                                                user?.name ?: "",
+                                                object : DialogListener {
+                                                    override fun onOKButtonClicked() {
+                                                        startActivity(
+                                                            ChatActivity.newIntent(
+                                                                this@BoardPostActivity,
+                                                                ERModel(
+                                                                    uid = user?.uid,
+                                                                    profilePicture = user?.profilePicture,
+                                                                    name = user?.name
+                                                                )
+                                                            )
                                                         )
-                                                    )
-                                                )
-                                            }
-                                        })
-                                        customDialog.show()
-                                    }
+                                                    }
+                                                })
+                                            customDialog.show()
+                                        }
 
+                                    }
                                 }
+
                             }
 
-                        }
+                            override fun onCancelled(error: DatabaseError) {
+                            }
 
-                        override fun onCancelled(error: DatabaseError) {
-                        }
-
-                    })
+                        })
 
                     if (board != null) {
                         boardPostTvDate.text =
                             board?.date?.let { formatTimeOrDate(it) }
                     }
 
-                    if (board?.comments?.size == 0){
+                    if (board?.comments?.size == 0) {
                         boardPostBtnComment.visibility = View.INVISIBLE
                     } else {
                         boardPostBtnComment.text = board?.comments?.size.toString()
@@ -203,9 +207,9 @@ class BoardPostActivity : AppCompatActivity() {
 
         })
 
-        if(BoardSingletone.LoginUser().profilePicture == null){
+        if (BoardSingletone.LoginUser().profilePicture == null) {
             boardPostIbProfile.setImageResource(R.drawable.ic_xiuk)
-        }else{
+        } else {
             boardPostIbCommentProfile.load(BoardSingletone.LoginUser().profilePicture)
         }
     }
@@ -227,9 +231,15 @@ class BoardPostActivity : AppCompatActivity() {
                 boardPostBtnUpdate.setOnClickListener {
 
                     val content = boardPostEtComment.text.toString()
-                    val newComment = CommentModel(commentItem.id, commentItem.author, content, Calendar.getInstance().timeInMillis)
+                    val newComment = CommentModel(
+                        commentItem.id,
+                        commentItem.author,
+                        content,
+                        Calendar.getInstance().timeInMillis
+                    )
 
-                    FBRef.postRef.child(id).child("comments").child(commentItem.id).setValue(newComment)
+                    FBRef.postRef.child(id).child("comments").child(commentItem.id)
+                        .setValue(newComment)
 
                     boardPostEtComment.setText("")
 
@@ -246,7 +256,8 @@ class BoardPostActivity : AppCompatActivity() {
 
             val commentkey = FBRef.postRef.child(id).child("comments").push().key.toString()
 
-            val newComment = CommentModel(commentkey, BoardSingletone.LoginUser().uid, content, date)
+            val newComment =
+                CommentModel(commentkey, BoardSingletone.LoginUser().uid, content, date)
 
             FBRef.postRef.child(id).child("comments").child(commentkey).setValue(newComment)
 
@@ -264,7 +275,7 @@ class BoardPostActivity : AppCompatActivity() {
     }
 
     private fun initModel() = with(binding) {
-        boardViewModel.commentList.observe(this@BoardPostActivity){ commentList ->
+        boardViewModel.commentList.observe(this@BoardPostActivity) { commentList ->
             listAdapter.submitList(commentList)
             boardPostBtnComment.text = commentList.size.toString()
         }
@@ -296,10 +307,12 @@ class BoardPostActivity : AppCompatActivity() {
                 // 0 : 수정,   1 : 삭제
                 0 -> {
                     refPowerMenu.dismiss()
-                    val updateIntent = Intent(this@BoardPostActivity, BoardUpdateActivity::class.java)
+                    val updateIntent =
+                        Intent(this@BoardPostActivity, BoardUpdateActivity::class.java)
                     updateIntent.putExtra("updateBoard", board)
                     startActivity(updateIntent)
                 }
+
                 else -> {
                     refPowerMenu.dismiss()
                     finish()
