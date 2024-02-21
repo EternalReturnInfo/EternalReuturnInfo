@@ -11,8 +11,8 @@
 | 이름   | 역할 | MBTI        | BLOG                                               | GITHUB                                                  | 
 | ------ | ---- | ---------- | -------------------------------------------------- | -------------------------------------------------------- |
 | 이호식 | 팀장 | ENFP        | [qhj6068(Owler).velog](https://velog.io/@ghj6068)  | [hosiker](https://github.com/hosiker)                |
+| 장재용 | 팀장 | ISFP        | [choco5732.log.velog](https://velog.io/@choco5732)       | [choco5732](https://github.com/choco5732) |
 | 양윤혁 | 팀원 | ESTJ        | [Yangdriod.tistory](https://yangdriod.tistory.com/)       | [yangyunhyeok](https://github.com/yangyunhyeok) |
-| 장재용 | 팀원 | ISFP        | [choco5732.log.velog](https://velog.io/@choco5732)       | [choco5732](https://github.com/choco5732) |
 | 추지연 | 팀원 | ISFP        | [jiyeon-tistory.tistory](https://jiyeon-tistory.tistory.com/)       | [Ji-Yeon-98](https://github.com/Ji-Yeon-98) |
 
 
