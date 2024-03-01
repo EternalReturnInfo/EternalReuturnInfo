@@ -14,7 +14,7 @@ data class BoardModel (
     val author: String? = "",
     val date: Long = 0,
     val comments: Map<String, CommentModel> = mapOf(),
-    val views: Int = 0
+    val views: Int = 0,
 ) : Parcelable
 
 @Parcelize

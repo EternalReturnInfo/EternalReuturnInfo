@@ -9,13 +9,13 @@
 
 
     <TextView
-        android:id="@+id/board_dialog_title"
+        android:id="@+id/report_dialog_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="24dp"
-        android:text="1:1 채팅"
+        android:text="신고 하시겠습니까?"
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -32,16 +32,16 @@
         android:background="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/board_dialog_title" />
+        app:layout_constraintTop_toBottomOf="@+id/report_dialog_title" />
 
     <TextView
-        android:id="@+id/board_dialog_message"
+        android:id="@+id/report_dialog_message"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:text="USER1님과 1:1 채팅을 하시겠습니까?"
+        android:text="신고하게되면 해당 게시글이 차단됩니다."
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
@@ -50,7 +50,7 @@
         app:layout_constraintTop_toBottomOf="@+id/view2" />
 
     <Button
-        android:id="@+id/board_dialog_btn_yes"
+        android:id="@+id/report_dialog_btn_yes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -62,7 +62,7 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/board_dialog_message" />
+        app:layout_constraintTop_toBottomOf="@+id/report_dialog_message" />
 
     <View
         android:id="@+id/view3"
@@ -70,13 +70,13 @@
         android:layout_height="18sp"
         android:layout_centerInParent="true"
         android:background="@color/blue"
-        app:layout_constraintBottom_toBottomOf="@+id/board_dialog_btn_no"
-        app:layout_constraintEnd_toStartOf="@+id/board_dialog_btn_yes"
-        app:layout_constraintStart_toEndOf="@+id/board_dialog_btn_no"
-        app:layout_constraintTop_toTopOf="@+id/board_dialog_btn_no" />
+        app:layout_constraintBottom_toBottomOf="@+id/report_dialog_btn_no"
+        app:layout_constraintEnd_toStartOf="@+id/report_dialog_btn_yes"
+        app:layout_constraintStart_toEndOf="@+id/report_dialog_btn_no"
+        app:layout_constraintTop_toTopOf="@+id/report_dialog_btn_no" />
 
     <Button
-        android:id="@+id/board_dialog_btn_no"
+        android:id="@+id/report_dialog_btn_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -86,7 +86,7 @@
         android:textColor="@color/blue"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/board_dialog_btn_yes"
-        app:layout_constraintTop_toBottomOf="@+id/board_dialog_message" />
+        app:layout_constraintEnd_toStartOf="@+id/report_dialog_btn_yes"
+        app:layout_constraintTop_toBottomOf="@+id/report_dialog_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

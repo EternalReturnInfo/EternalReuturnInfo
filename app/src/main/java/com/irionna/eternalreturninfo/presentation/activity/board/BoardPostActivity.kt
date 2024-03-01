@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -143,12 +144,14 @@ class BoardPostActivity : AppCompatActivity() {
 
                                     if (user?.uid == BoardSingletone.LoginUser().uid) {
                                         boardPostIbMenu.visibility = View.VISIBLE
+                                        boardReportMenu.visibility = View.INVISIBLE
 
                                         boardPostIbMenu.setOnClickListener {
                                             refPowerMenu.showAsDropDown(it)
                                         }
                                     } else {
                                         boardPostIbMenu.visibility = View.INVISIBLE
+                                        boardReportMenu.visibility = View.VISIBLE
 
                                         boardPostIbProfile.setOnClickListener {
                                             val customDialog = BoardDialog(
@@ -170,6 +173,29 @@ class BoardPostActivity : AppCompatActivity() {
                                                 })
                                             customDialog.show()
                                         }
+
+                                        boardReportMenu.setOnClickListener{
+                                            val reportDialog = ReportDialog(
+                                                this@BoardPostActivity,
+                                                object : DialogListener {
+                                                    override fun onOKButtonClicked() {
+                                                        val reportDialog2 = ReportDialog2(
+                                                            this@BoardPostActivity,
+                                                            object : DialogListener {
+                                                                override fun onOKButtonClicked() {
+                                                                    finish()
+                                                                }
+                                                            }
+                                                        )
+                                                        reportDialog2.show()
+                                                    }
+                                                }
+
+                                            )
+                                            reportDialog.show()
+
+                                        }
+
 
                                     }
                                 }
