@@ -15,6 +15,7 @@ data class BoardModel (
     val date: Long = 0,
     val comments: Map<String, CommentModel> = mapOf(),
     val views: Int = 0,
+    val report: Map<String, ReportModel> = mapOf()
 ) : Parcelable
 
 @Parcelize
@@ -25,3 +26,11 @@ data class CommentModel(
     val content: String = "",
     val date: Long = 0
 ) : Parcelable
+
+@Parcelize
+@Keep
+data class ReportModel(
+    val uid: String = ""
+) : Parcelable
+
+

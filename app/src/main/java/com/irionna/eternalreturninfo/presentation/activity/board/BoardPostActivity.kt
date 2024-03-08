@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.irionna.eternalreturninfo.data.model.ReportModel
 import com.skydoves.powermenu.CircularEffect
 import com.skydoves.powermenu.MenuAnimation
 import com.skydoves.powermenu.OnMenuItemClickListener
@@ -82,6 +83,7 @@ class BoardPostActivity : AppCompatActivity() {
         initDataload()
         initView()
         initModel()
+
     }
 
     private fun progressbar(isLoading: Boolean) {
@@ -183,6 +185,11 @@ class BoardPostActivity : AppCompatActivity() {
                                                             this@BoardPostActivity,
                                                             object : DialogListener {
                                                                 override fun onOKButtonClicked() {
+
+                                                                    val reportMap = ReportModel(FBRef.auth.uid!!)
+                                                                    FBRef.postRef.child(id).child("report").push().setValue(reportMap)
+                                                                    intent.putExtra("updateBoard", board?.copy(category = "report"))
+                                                                    setResult(RESULT_OK, intent)
                                                                     finish()
                                                                 }
                                                             }
