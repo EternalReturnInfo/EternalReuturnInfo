@@ -49,7 +49,7 @@
 
             <ImageView
                 android:id="@+id/board_report_menu"
-                android:src="@drawable/ic_alarm"
+                android:src="@drawable/ic_alert2"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:visibility="invisible" />
