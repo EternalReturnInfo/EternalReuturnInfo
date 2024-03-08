@@ -39,7 +39,7 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/board_comment_ib_menu"
+            app:layout_constraintEnd_toStartOf="@+id/boad_comment_frame"
             app:layout_constraintStart_toEndOf="@+id/board_comment_ib_profile"
             app:layout_constraintTop_toBottomOf="@+id/board_comment_tv_user" />
 
@@ -85,16 +85,31 @@
             app:layout_constraintStart_toEndOf="@+id/view"
             app:layout_constraintTop_toTopOf="@+id/board_comment_tv_user" />
 
-        <ImageButton
-            android:id="@+id/board_comment_ib_menu"
+        <FrameLayout
+            android:id="@+id/boad_comment_frame"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="24dp"
-            android:background="@drawable/ic_board_baseline_more_horiz_24"
-            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageButton
+                android:id="@+id/board_comment_ib_menu"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_board_baseline_more_horiz_24"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/board_comment_ib_menu_report"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_board_baseline_more_horiz_24_white"
+                android:visibility="invisible" />
+
+        </FrameLayout>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

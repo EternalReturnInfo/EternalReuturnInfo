@@ -78,6 +78,21 @@ class BoardCommentRecyclerViewAdpater(
             .build()
     }
 
+    private val refPowerMenuForReport: PowerMenu by lazy {
+        PowerMenu.Builder(context)
+            .addItem(PowerMenuItem("신고"))
+            .setMenuRadius(20f) // sets the corner radius.
+            .setTextSize(18)
+            .setWidth(330)
+            .setTextGravity(Gravity.CENTER)
+            .setTextColor(ContextCompat.getColor(context, R.color.white))
+            .setMenuColor(ContextCompat.getColor(context, R.color.darkgray))
+            .setSelectedMenuColor(ContextCompat.getColor(context, R.color.black))
+            .setCircularEffect(CircularEffect.BODY)
+            .setAnimation(MenuAnimation.SHOWUP_TOP_RIGHT)
+            .build()
+    }
+
 
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.onDeleteItemClickListener = listener
@@ -114,9 +129,9 @@ class BoardCommentRecyclerViewAdpater(
 
                         boardCommentTvUser.text = author?.name
 
-                        if(author?.profilePicture?.isEmpty() == true){
+                        if (author?.profilePicture?.isEmpty() == true) {
                             boardCommentIbProfile.setImageResource(R.drawable.ic_xiuk)
-                        }else{
+                        } else {
                             boardCommentIbProfile.load(author?.profilePicture)
                         }
 
@@ -146,7 +161,25 @@ class BoardCommentRecyclerViewAdpater(
                                 refPowerMenu.setOnMenuItemClickListener(onMenuItemClickListener)
                             }
                         } else {
-                            boardCommentIbMenu.visibility = View.INVISIBLE
+                            boardCommentIbMenuReport.visibility = View.VISIBLE
+                            boardCommentIbMenuReport.setOnClickListener {
+
+                                val onMenuItemClickListener = object : OnMenuItemClickListener<PowerMenuItem> {
+                                    override fun onItemClick(position: Int, item2: PowerMenuItem) {
+                                        when (position) {
+                                            // 0 : 신고
+                                            0 -> {
+                                                refPowerMenuForReport.dismiss()
+//                                                onUpdateItemClickListener?.onUpdateItemClick(item, adapterPosition)
+                                            }
+                                        }
+                                    }
+                                }
+
+                                refPowerMenuForReport.showAsDropDown(it)
+                                refPowerMenuForReport.setOnMenuItemClickListener(onMenuItemClickListener)
+
+                            }
 
                             boardCommentIbProfile.setOnClickListener {
                                 val customDialog = BoardDialog(binding.root.context, author?.name.toString(), object : DialogListener {

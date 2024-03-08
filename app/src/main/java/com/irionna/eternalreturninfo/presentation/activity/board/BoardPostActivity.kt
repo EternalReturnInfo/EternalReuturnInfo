@@ -75,6 +75,7 @@ class BoardPostActivity : AppCompatActivity() {
     }
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = BoardPostActivityBinding.inflate(layoutInflater)
@@ -144,6 +145,7 @@ class BoardPostActivity : AppCompatActivity() {
                                         boardPostIbProfile.load(user?.profilePicture)
                                     }
 
+                                    // 게시글 작성자일 경우, 수정 삭제 활성화
                                     if (user?.uid == BoardSingletone.LoginUser().uid) {
                                         boardPostIbMenu.visibility = View.VISIBLE
                                         boardReportMenu.visibility = View.INVISIBLE
@@ -355,4 +357,5 @@ class BoardPostActivity : AppCompatActivity() {
             }
         }
     }
+
 }
