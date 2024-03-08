@@ -1,6 +1,7 @@
 package com.irionna.eternalreturninfo.presentation.adapter.board
 
 import android.content.Context
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -57,10 +58,12 @@ class BoardCommentRecyclerViewAdpater(
     interface OnItemClickListener {
         fun onDeleteItemClick(commentItem: CommentModel, position:Int)
         fun onUpdateItemClick(commentItem: CommentModel, position:Int)
+        fun onReportItemClick(commentItem: CommentModel, position:Int)
     }
 
     private var onDeleteItemClickListener: OnItemClickListener? = null
     private var onUpdateItemClickListener: OnItemClickListener? = null
+    private var onReportItemClickListener: OnItemClickListener? = null
 
     private val refPowerMenu: PowerMenu by lazy {
         PowerMenu.Builder(context)
@@ -97,6 +100,7 @@ class BoardCommentRecyclerViewAdpater(
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.onDeleteItemClickListener = listener
         this.onUpdateItemClickListener = listener
+        this.onReportItemClickListener = listener
     }
 
 
@@ -136,8 +140,9 @@ class BoardCommentRecyclerViewAdpater(
                         }
 
                         // 로그인한 사용자면 ibMenu 보여주기
-                        if (author?.uid == BoardSingletone.LoginUser().uid) {
+                        if (author?.uid == FBRef.auth.uid) {
                             boardCommentIbMenu.visibility = View.VISIBLE
+                            boardCommentIbMenuReport.visibility = View.GONE
                             boardCommentIbMenu.setOnClickListener {
 
                                 // 팝업메뉴 onClick 리스너
@@ -162,6 +167,7 @@ class BoardCommentRecyclerViewAdpater(
                             }
                         } else {
                             boardCommentIbMenuReport.visibility = View.VISIBLE
+                            boardCommentIbMenu.visibility = View.GONE
                             boardCommentIbMenuReport.setOnClickListener {
 
                                 val onMenuItemClickListener = object : OnMenuItemClickListener<PowerMenuItem> {
@@ -170,7 +176,7 @@ class BoardCommentRecyclerViewAdpater(
                                             // 0 : 신고
                                             0 -> {
                                                 refPowerMenuForReport.dismiss()
-//                                                onUpdateItemClickListener?.onUpdateItemClick(item, adapterPosition)
+                                                onReportItemClickListener?.onReportItemClick(item, adapterPosition)
                                             }
                                         }
                                     }

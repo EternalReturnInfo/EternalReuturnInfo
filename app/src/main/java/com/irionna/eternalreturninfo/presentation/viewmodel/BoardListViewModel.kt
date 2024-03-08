@@ -12,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.irionna.eternalreturninfo.data.model.ReportCommentModel
 import com.irionna.eternalreturninfo.data.model.ReportModel
 
 class BoardListViewModel() : ViewModel(){
@@ -53,9 +54,11 @@ class BoardListViewModel() : ViewModel(){
     }
 
     fun initComment(items: MutableList<CommentModel>) {
+
         if (items == null) {
             return
         }
+
         _commentList.value = items
     }
 
@@ -145,6 +148,7 @@ class BoardListViewModel() : ViewModel(){
         currentList.removeAt(findPosition)
         _boardList.value = currentList
     }
+
 
 }
 

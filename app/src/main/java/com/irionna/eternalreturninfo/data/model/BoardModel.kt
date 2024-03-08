@@ -24,13 +24,21 @@ data class CommentModel(
     val id: String = "",
     val author: String? = "",
     val content: String = "",
-    val date: Long = 0
+    val date: Long = 0,
+    val report: Map<String, ReportModel> = mapOf()
 ) : Parcelable
 
 @Parcelize
 @Keep
 data class ReportModel(
     val uid: String = ""
+) : Parcelable
+
+@Parcelize
+@Keep
+data class ReportCommentModel(
+    val uid: String = "",
+    val key: String = ""
 ) : Parcelable
 
 

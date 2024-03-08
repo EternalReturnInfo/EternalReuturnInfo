@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +25,6 @@ import com.irionna.eternalreturninfo.presentation.viewmodel.BoardListViewModelFa
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.getValue
 import com.irionna.eternalreturninfo.data.model.ReportModel
 import com.skydoves.powermenu.CircularEffect
 import com.skydoves.powermenu.MenuAnimation
@@ -54,6 +52,7 @@ class BoardPostActivity : AppCompatActivity() {
 
     private var board: BoardModel? = null
     private var id: String = ""
+    private var set: MutableSet<CommentModel> = mutableSetOf()
 
     private var dataload = false
 
@@ -179,33 +178,20 @@ class BoardPostActivity : AppCompatActivity() {
                                         }
 
                                         boardReportMenu.setOnClickListener{
-                                            val reportDialog = ReportDialog(
+                                            val reportBoardDialog = ReportBoardDialog(
                                                 this@BoardPostActivity,
                                                 object : DialogListener {
                                                     override fun onOKButtonClicked() {
-                                                        val reportDialog2 = ReportDialog2(
-                                                            this@BoardPostActivity,
-                                                            object : DialogListener {
-                                                                override fun onOKButtonClicked() {
-
-                                                                    val reportMap = ReportModel(FBRef.auth.uid!!)
-                                                                    FBRef.postRef.child(id).child("report").push().setValue(reportMap)
-                                                                    intent.putExtra("updateBoard", board?.copy(category = "report"))
-                                                                    setResult(RESULT_OK, intent)
-                                                                    finish()
-                                                                }
-                                                            }
-                                                        )
-                                                        reportDialog2.show()
+                                                        val reportMap = ReportModel(FBRef.auth.uid!!)
+                                                        FBRef.postRef.child(id).child("report").push().setValue(reportMap)
+                                                        intent.putExtra("updateBoard", board?.copy(category = "report"))
+                                                        setResult(RESULT_OK, intent)
+                                                        finish()
                                                     }
                                                 }
-
                                             )
-                                            reportDialog.show()
-
+                                            reportBoardDialog.show()
                                         }
-
-
                                     }
                                 }
 
@@ -228,9 +214,20 @@ class BoardPostActivity : AppCompatActivity() {
 
                         val comments = board?.comments?.values?.toList()
                         val sortedComment = comments?.sortedBy { Date(it.date) }
+
+
                         if (sortedComment != null) {
-                            boardViewModel.initComment(sortedComment.toMutableList())
+
+                            val filter = sortedComment.filterNot{
+                                it.report.containsValue(ReportModel(FBRef.auth.uid!!))
+                            }
+
+
+                            boardViewModel.initComment(filter.toMutableList())
+
                         }
+
+
                     }
                 }
 
@@ -283,6 +280,28 @@ class BoardPostActivity : AppCompatActivity() {
                 }
 
             }
+
+            override fun onReportItemClick(commentItem: CommentModel, position: Int) {
+
+                val reportCommentDialog = ReportCommentDialog(
+                    this@BoardPostActivity,
+                    object : DialogListener {
+                        override fun onOKButtonClicked() {
+                            // 댓글 신고 눌렀을 시 해야할 작업들
+                            // 1. 신고한 댓글 뷰모델에서 삭제
+                            boardViewModel.removeComment(position)
+
+                            // 2. 서버에 댓글 신고 등록
+                            val commentKey = FBRef.postRef.child(id).child("comments").child(commentItem.id).child("report").push().key.toString()
+                            val reportMap = ReportModel(FBRef.auth.uid!!)
+
+                            FBRef.postRef.child(id).child("comments").child(commentItem.id).child("report").child(commentKey).setValue(reportMap)
+                        }
+                    }
+                )
+                reportCommentDialog.show()
+
+            }
         })
 
         boardPostBtnSave.setOnClickListener {
@@ -309,10 +328,10 @@ class BoardPostActivity : AppCompatActivity() {
 
     }
 
-    private fun initModel() = with(binding) {
-        boardViewModel.commentList.observe(this@BoardPostActivity) { commentList ->
+    private fun initModel() = with(boardViewModel) {
+        commentList.observe(this@BoardPostActivity) { commentList ->
             listAdapter.submitList(commentList)
-            boardPostBtnComment.text = commentList.size.toString()
+            binding.boardPostBtnComment.text = commentList.size.toString()
         }
     }
 
