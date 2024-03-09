@@ -8,6 +8,8 @@
 
 - 팀 노션 : **[[Notion]](https://www.notion.so/7ed4416e04c644568de39205605569d7)**
 
+- Play 스토어 : https://play.google.com/store/apps/details?id=com.irionna.eternalreturninfo&hl=ko-KR
+
 | 이름   | 역할 | MBTI        | BLOG                                               | GITHUB                                                  | 
 | ------ | ---- | ---------- | -------------------------------------------------- | -------------------------------------------------------- |
 | 이호식 | 팀장 | ENFP        | [qhj6068(Owler).velog](https://velog.io/@ghj6068)  | [hosiker](https://github.com/hosiker)                |
