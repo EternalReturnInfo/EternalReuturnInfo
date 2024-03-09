@@ -8,7 +8,6 @@
 
 - 팀 노션 : **[[Notion]](https://www.notion.so/7ed4416e04c644568de39205605569d7)**
 
-- Play 스토어 : https://play.google.com/store/apps/details?id=com.irionna.eternalreturninfo&hl=ko-KR
 
 | 이름   | 역할 | MBTI        | BLOG                                               | GITHUB                                                  | 
 | ------ | ---- | ---------- | -------------------------------------------------- | -------------------------------------------------------- |
@@ -25,7 +24,8 @@
 - **Team Repository** : **[[EternalReturnInfo]](https://github.com/EternalReturnInfo/EternalReuturnInfo)**
 
 - 주제 : 온라인 게임 Eternal Return 에 대한 정보를 제공하고 공유하는 커뮤니티 앱
-
+- 
+- Play 스토어 : https://play.google.com/store/apps/details?id=com.irionna.eternalreturninfo&hl=ko-KR
 
 <br>
 
