@@ -48,6 +48,7 @@ class ChatListAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ERModel) = with(binding) {
+
             chatListName.text = item.name
             chatListProfilePicture.load(item.profilePicture.toString())
             chatListMsg.text = item.msg

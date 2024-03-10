@@ -184,7 +184,7 @@ class SignUpActivity : AppCompatActivity() {
                 }
             } else {
                 MotionToast.darkColorToast(
-                    this, "CHECK", "같은 비밀번호를 입력하세요",
+                    this, "CHECK", "같은 비밀번호를 입력하세요.",
                     MotionToastStyle.WARNING,
                     MotionToast.GRAVITY_BOTTOM,
                     MotionToast.SHORT_DURATION,
@@ -193,7 +193,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         } else {
             MotionToast.darkColorToast(
-                this, "CHECK", "회원가입 정보를 입력하세요",
+                this, "CHECK", "회원가입 정보를 입력하세요.",
                 MotionToastStyle.WARNING,
                 MotionToast.GRAVITY_BOTTOM,
                 MotionToast.SHORT_DURATION,
@@ -296,7 +296,7 @@ class SignUpActivity : AppCompatActivity() {
                                     R.color.highlight_color
                                 )
                             )
-                            binding.signupTvIDcheckMessage.text = "사용가능한 이메일입니다."
+                            binding.signupTvIDcheckMessage.text = "사용 가능한 이메일입니다."
                             signupEmail = email
                         }
 
@@ -331,11 +331,12 @@ class SignUpActivity : AppCompatActivity() {
                                     binding.signupTvCheckMessage.setTextColor(
                                         ContextCompat.getColor(
                                             this@SignUpActivity,
-                                            R.color.highlight_color2
+                                            R.color.yellow
                                         )
                                     )
-                                    binding.signupTvCheckMessage.text = "닉네임이 존재하지 않습니다."
-                                    signupNickname = ""
+                                    binding.signupTvCheckMessage.text = "닉네임이 존재하지 않습니다 \n일부 기능이 제한됩니다."
+                                    signupNickname = nickname
+                                    nickNameCheck = false
                                 } else if (nickNameCheck) {
                                     binding.signupTvCheckMessage.visibility = View.VISIBLE
                                     binding.signupTvCheckMessage.setTextColor(
@@ -354,7 +355,7 @@ class SignUpActivity : AppCompatActivity() {
                                             R.color.highlight_color
                                         )
                                     )
-                                    binding.signupTvCheckMessage.text = "사용가능한 닉네임입니다."
+                                    binding.signupTvCheckMessage.text = "사용 가능한 닉네임입니다."
                                     signupNickname = gameResponse.user.nickname
                                 }
                             }

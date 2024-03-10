@@ -20,8 +20,8 @@ android {
         applicationId = "com.irionna.eternalreturninfo"
         minSdk = 24
         targetSdk = 33
-        versionCode = 24
-        versionName = "1.24"
+        versionCode = 25
+        versionName = "1.25"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField("String", "google_Token",localProperties.getProperty("googleToken"))
