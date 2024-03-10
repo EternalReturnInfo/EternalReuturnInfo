@@ -22,6 +22,7 @@ import com.irionna.eternalreturninfo.presentation.viewmodel.BoardListViewModel
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import com.irionna.eternalreturninfo.data.model.ReportModel
 
 abstract class BaseFragment() : Fragment() {
 
@@ -55,26 +56,43 @@ abstract class BaseFragment() : Fragment() {
         super.onDestroyView()
     }
 
-    fun initView() = with(binding){
-        val loadBoardLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
+    fun initView() = with(binding) {
+        val loadBoardLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == Activity.RESULT_OK) {
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    result.data?.getParcelableExtra("updateBoard", BoardModel::class.java)?.let { updateBoard ->
-                        boardViewModel.updateBoard(updateBoard)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        result.data?.getParcelableExtra("updateBoard", BoardModel::class.java)
+                            ?.let { updateBoard ->
+
+                                Log.d("choco5732", updateBoard.toString() )
+                                if (updateBoard.category == "report") {
+                                   boardViewModel.removeBoard(updateBoard)
+                                }
+                                else {
+                                    boardViewModel.updateBoard(updateBoard)
+                                }
+                            }
+
+                    } else {
+                        result.data?.getParcelableExtra<BoardModel>("updateBoard")
+                            ?.let { updateBoard ->
+
+                                Log.d("choco5732", updateBoard.toString() )
+                                if (updateBoard.category == "report") {
+                                    boardViewModel.removeBoard(updateBoard)
+                                }
+                                else {
+                                    boardViewModel.updateBoard(updateBoard)
+                                }
+                            }
                     }
-
 
                 } else {
-                    result.data?.getParcelableExtra<BoardModel>("updateBoard")?.let { updateBoard ->
-                        boardViewModel.updateBoard(updateBoard)
-                    }
+
                 }
 
-            }else{
-
             }
-        }
 
         boardNoticeRv.adapter = listAdapter
         boardNoticeRv.layoutManager = LinearLayoutManager(requireContext())

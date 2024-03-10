@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.irionna.eternalreturninfo.data.model.ReportModel
 
 
 class BoardFragment : Fragment() {
@@ -105,12 +106,14 @@ class BoardFragment : Fragment() {
     }
 
     fun refresh(){
+        // Firebase.database.getReference("post")
         FBRef.postRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 val unsortedBoardList = mutableListOf<BoardModel>()
                 for (data in snapshot.children) {
                     val board = data.getValue<BoardModel>()
-                    if (board != null) {
+
+                    if (board != null && !board!!.report.containsValue(ReportModel(FBRef.auth.uid!!)))  {
                         unsortedBoardList.add(board)
                     }
                 }

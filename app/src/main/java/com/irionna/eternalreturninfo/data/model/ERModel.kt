@@ -22,7 +22,6 @@ data class ERModel (
     val profilePicture: String? = null,
     var readOrNot: Boolean? = null,
     var time: String? = null,
-
     var winrate :String? = null,
     var avgrank :String? = null
 

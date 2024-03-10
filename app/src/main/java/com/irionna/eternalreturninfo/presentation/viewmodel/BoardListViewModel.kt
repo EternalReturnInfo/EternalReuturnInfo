@@ -1,5 +1,6 @@
 package com.irionna.eternalreturninfo.presentation.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import com.irionna.eternalreturninfo.data.model.ReportCommentModel
+import com.irionna.eternalreturninfo.data.model.ReportModel
 
 class BoardListViewModel() : ViewModel(){
 
@@ -32,9 +35,12 @@ class BoardListViewModel() : ViewModel(){
             override fun onDataChange(snapshot: DataSnapshot) {
                 val unsortedBoardList = mutableListOf<BoardModel>()
                 for (data in snapshot.children) {
-//                    val board = data.getValue<BoardModel>()
                     val board = data.getValue(BoardModel::class.java)
-                    if (board != null) {
+
+                    // 게시판 처음 들어왔을 때, 내가 신고한 게시판을 제외한, 게시판만 띄우기
+                    Log.d("choco", "${board.toString()}")
+
+                    if (board != null && !board!!.report.containsValue(ReportModel(FBRef.auth.uid!!))) {
                         unsortedBoardList.add(board)
                     }
                 }
@@ -48,9 +54,11 @@ class BoardListViewModel() : ViewModel(){
     }
 
     fun initComment(items: MutableList<CommentModel>) {
+
         if (items == null) {
             return
         }
+
         _commentList.value = items
     }
 
@@ -113,6 +121,34 @@ class BoardListViewModel() : ViewModel(){
         currentList.removeAt(position)
         _commentList.value = currentList
     }
+
+    fun removeBoard(item: BoardModel) {
+        fun findIndex(item: BoardModel?): Int {
+            val currentList = boardList.value.orEmpty().toMutableList()
+            // 같은 id 를 찾음
+            val findTodo = currentList.find {
+                it.id == item?.id
+            }
+
+            // 찾은 model 기준으로 index 를 찾음
+            return currentList.indexOf(findTodo)
+        }
+
+        if (item == null) {
+            return
+        }
+
+        // position 이 null 이면 indexOf 실시
+        val findPosition = findIndex(item)
+        if (findPosition < 0) {
+            return
+        }
+
+        val currentList = boardList.value.orEmpty().toMutableList()
+        currentList.removeAt(findPosition)
+        _boardList.value = currentList
+    }
+
 
 }
 
