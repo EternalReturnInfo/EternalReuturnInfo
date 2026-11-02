@@ -184,3 +184,23 @@ Realtime Database 의 `user/<uid>/email` 필드를 지워요. `user` 노드는 �
 ```
 
 끝나면 서비스 계정 키를 삭제하세요. (Firebase 콘솔 > 프로젝트 설정 > 서비스 계정 > 키 관리)
+
+## reports_review.py
+
+신고가 접수된 게시글·댓글을 한눈에 보고, **탈퇴한 작성자의 신고된 글/댓글을 3개월 보관한 뒤 지우는** 도구예요. 앱의 회원탈퇴는 다른 사람의 신고가 접수된 글/댓글을 지우지 않고 남겨 두기 때문에(개인정보처리방침 참고), 보관 기간이 끝난 것을 이 도구로 정리해요.
+
+- 기본은 읽기 전용이에요. 목록에는 상태가 붙어요: `작성자 활동 중`(건드리지 않음), `탈퇴, 보관 중`, `보관 만료`(첫 신고 후 90일 경과), `탈퇴, 날짜 없음(직접 판단)`(시각이 없는 옛 신고).
+- 내용은 앞 30자만 보여줘요. 본인이 자기 글을 신고한 것은 세지 않아요.
+
+```powershell
+.\.venv\Scripts\python tools\reports_review.py --key "C:\...\secrets\<키>.json" --db-url https://eternalreturninfo-4dc4b-default-rtdb.firebaseio.com
+```
+
+보관 만료된 것을 지울 때는 먼저 대상만 확인하고, 맞으면 `--apply` 를 붙여요.
+
+```powershell
+.\.venv\Scripts\python tools\reports_review.py --key "C:\...\secrets\<키>.json" --db-url https://eternalreturninfo-4dc4b-default-rtdb.firebaseio.com --delete-expired
+.\.venv\Scripts\python tools\reports_review.py --key "C:\...\secrets\<키>.json" --db-url https://eternalreturninfo-4dc4b-default-rtdb.firebaseio.com --delete-expired --apply
+```
+
+끝나면 서비스 계정 키를 삭제하세요. 한 달에 한 번 정도 점검하면 돼요.
