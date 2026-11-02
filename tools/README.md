@@ -154,3 +154,13 @@ python tools/rotate_passwords.py --key ~/secrets/er-admin.json --apply
 ```powershell
 .\.venv\Scripts\python tools\make_apps_script.py --key "C:\...\secrets\<키>.json" --contact erinfomanager@gmail.com --test-to <내개인메일> --notice tools\notice_followup.txt --exclude 오타주소@gmial.com
 ```
+
+## user_stats.py
+
+가입자 현황을 **집계로만** 보여줘요. 이메일 등 개인정보는 출력하지 않고, 아무것도 바꾸지 않는 읽기 전용이에요. 계정 수, 로그인 방식, 월별 가입 수, 마지막 활동 분포, 가입 후 다시 오지 않은 계정 수를 보여줘요. `--db-url` 을 주면 게시글·댓글·채팅 개수도 세요.
+
+```powershell
+.\.venv\Scripts\python tools\user_stats.py --key "C:\...\secrets\<키>.json" --db-url https://eternalreturninfo-4dc4b-default-rtdb.firebaseio.com
+```
+
+마지막 활동은 로그인과 토큰 갱신 기록 기준이에요. 끝나면 서비스 계정 키를 삭제하세요.
