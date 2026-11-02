@@ -78,6 +78,10 @@ def render_script(subject: str, body: str, recipients: list[str], test_to: str |
     return script
 
 
+def drop_excluded(recipients: list[str], excluded: set[str] | None) -> list[str]:
+    return [email for email in recipients if not excluded or email not in excluded]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--key", required=True, type=Path, help="서비스 계정 키(JSON) 경로 (저장소 밖에 둘 것)")
@@ -86,6 +90,7 @@ def main() -> None:
     parser.add_argument("--notice", type=Path, default=DEFAULT_NOTICE, help="안내문 파일 (기본: tools/notice_template.txt)")
     parser.add_argument("--all", action="store_true", help="Google 로그인 계정 등 이메일이 있는 모든 계정에 보낸다")
     parser.add_argument("--only", nargs="+", metavar="EMAIL", help="이 주소들에만 보낸다")
+    parser.add_argument("--exclude", nargs="+", metavar="EMAIL", help="이 주소들은 뺀다 (오타 주소 등)")
     parser.add_argument("--out", type=Path, help="출력 파일 (기본: 키 파일 옆 notice_sender.gs)")
     args = parser.parse_args()
 
@@ -96,6 +101,7 @@ def main() -> None:
     firebase_admin.initialize_app(credentials.Certificate(str(args.key)))
     only = {e.lower() for e in args.only} if args.only else None
     recipients = pick_recipients(auth.list_users().iterate_all(), include_all=args.all, only=only)
+    recipients = drop_excluded(recipients, {e.lower() for e in args.exclude} if args.exclude else None)
     if not recipients:
         sys.exit("수신자가 0명이에요. 만들지 않았어요.")
 

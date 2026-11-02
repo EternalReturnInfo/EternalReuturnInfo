@@ -144,3 +144,11 @@ python tools/rotate_passwords.py --key ~/secrets/er-admin.json --apply
 
 - 일반 Gmail 은 하루 발송 한도가 있어요(대략 100명). 스크립트가 남은 한도를 확인해서 그만큼만 보내고, 남으면 내일 다시 실행하라고 알려줘요.
 - 한 번 실행은 6분 제한이 있어요. 71명은 약 2분이면 끝나요.
+
+### 후속 안내 메일 보내기 (재설정 링크가 만료된 사용자용)
+
+재설정 링크는 유효 시간이 짧아서 며칠 뒤에 누르면 "만료되었거나 이미 사용되었습니다"가 나와요. 앱 로그인 화면의 "비밀번호 찾기"로 새 링크를 받을 수 있다는 안내문이 `tools/notice_followup.txt` 에 있어요. `--notice` 로 이 파일을 지정하면 같은 방식으로 보내요. `--exclude` 로 오타 주소 등을 뺄 수 있어요.
+
+```powershell
+.\.venv\Scripts\python tools\make_apps_script.py --key "C:\...\secrets\<키>.json" --contact erinfomanager@gmail.com --test-to <내개인메일> --notice tools\notice_followup.txt --exclude 오타주소@gmial.com
+```
