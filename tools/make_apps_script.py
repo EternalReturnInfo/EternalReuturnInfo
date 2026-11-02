@@ -23,6 +23,8 @@ const TEST_TO = __TEST_TO__;
 const SUBJECT = __SUBJECT__;
 const BODY = __BODY__;
 const RECIPIENTS = __RECIPIENTS__;
+// 보낸 사람 기록은 안내문(제목)마다 따로 둬요. 같은 프로젝트에서 다른 안내문을 보내도 막히지 않아요.
+const SENT_KEY = 'sent:' + SUBJECT;
 const SENDER_NAME = 'ER info';
 const PAUSE_MS = 1500;
 
@@ -36,7 +38,7 @@ function testSend() {
 // 2) 테스트가 정상이면 이 함수를 실행해서 전체에게 보내세요. 다시 실행해도 보낸 사람은 건너뛰어요.
 function sendToAll() {
   const props = PropertiesService.getScriptProperties();
-  const done = JSON.parse(props.getProperty('sent') || '[]');
+  const done = JSON.parse(props.getProperty(SENT_KEY) || '[]');
   const pending = RECIPIENTS.filter(email => done.indexOf(email) < 0);
   const quota = MailApp.getRemainingDailyQuota();
   console.log('남은 대상 ' + pending.length + '명 / 오늘 남은 발송 한도 ' + quota + '명');
@@ -46,7 +48,7 @@ function sendToAll() {
     try {
       send_(email);
       done.push(email);
-      props.setProperty('sent', JSON.stringify(done));
+      props.setProperty(SENT_KEY, JSON.stringify(done));
     } catch (error) {
       failed.push(email + ' (' + error.message + ')');
     }
