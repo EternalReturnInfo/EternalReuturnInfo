@@ -164,3 +164,23 @@ python tools/rotate_passwords.py --key ~/secrets/er-admin.json --apply
 ```
 
 마지막 활동은 로그인과 토큰 갱신 기록 기준이에요. 끝나면 서비스 계정 키를 삭제하세요.
+
+## scrub_rtdb_email.py
+
+Realtime Database 의 `user/<uid>/email` 필드를 지워요. `user` 노드는 로그인한 모든 사용자가 읽을 수 있는데 앱은 이 노드의 이메일을 쓰지 않아서(내 정보 화면은 Firestore 에서 읽어요), 남아 있는 이메일 값을 정리하는 일회성 도구예요. 이메일 값은 출력하지 않고 개수만 보여줘요.
+
+앱이 새 가입자의 이메일을 이 노드에 쓰지 않는 버전(PR "RTDB user 노드에 이메일 저장 중단")이 `main` 에 들어간 뒤에 실행하세요.
+
+먼저 dry-run 으로 대상 개수만 봐요.
+
+```powershell
+.\.venv\Scripts\python tools\scrub_rtdb_email.py --key "C:\...\secrets\<키>.json" --db-url https://eternalreturninfo-4dc4b-default-rtdb.firebaseio.com
+```
+
+개수가 예상과 맞으면 `--apply` 를 붙여 실제로 지워요. 끝에 다시 조회해서 남은 항목이 0개인지 확인하고, 0개이면 종료 코드 0 으로 끝나요.
+
+```powershell
+.\.venv\Scripts\python tools\scrub_rtdb_email.py --key "C:\...\secrets\<키>.json" --db-url https://eternalreturninfo-4dc4b-default-rtdb.firebaseio.com --apply
+```
+
+끝나면 서비스 계정 키를 삭제하세요. (Firebase 콘솔 > 프로젝트 설정 > 서비스 계정 > 키 관리)
