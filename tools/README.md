@@ -240,6 +240,15 @@ $url = "https://eternalreturninfo-4dc4b-default-rtdb.firebaseio.com"
 .\.venv\Scripts\python tools\moderation.py unsuspend <uid> --note "이의 제기 수용" --key $key --db-url $url --apply
 ```
 
+### 2-1. 신고 시각이 없는 옛 신고 한꺼번에 처리하기 (처음 한 번)
+옛 앱 시절의 신고에는 시각이 없어서 기한을 셀 수 없고, 접수함에 계속 남아요. 이런 옛 글/댓글 신고만 골라서 한 번에 처리해요(이용자 신고는 항상 시각이 있어서 해당 없어요). 먼저 `--apply` 없이 **무엇이 처리되는지 목록을 확인**하세요.
+- `--action none`: 기록만 남기고 글/댓글은 그대로 둬요.
+- `--action delete-content`: 글/댓글을 **삭제**하고 기록을 남겨요. 삭제는 되돌릴 수 없어요. 글을 지우면 그 글에 달린 댓글도 함께 지워져요.
+```powershell
+.\.venv\Scripts\python tools\moderation.py resolve-legacy --action delete-content --note "옛 테스트 신고 일괄 정리" --key $key --db-url $url
+.\.venv\Scripts\python tools\moderation.py resolve-legacy --action delete-content --note "옛 테스트 신고 일괄 정리" --key $key --db-url $url --apply
+```
+
 ### 3. 정리 (한 달에 한 번)
 접수일로부터 90일이 지난 이용자 신고와 처리 기록을 지워요. 신고가 접수된 글/댓글 중 작성자가 탈퇴한 것은 `reports_review.py --delete-expired` 로 따로 정리해요.
 ```powershell

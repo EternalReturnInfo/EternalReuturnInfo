@@ -63,6 +63,20 @@ class InboxTests(unittest.TestCase):
         self.assertEqual(inbox[0]["level"], "undated")
 
 
+class LegacyTests(unittest.TestCase):
+    def test_only_undated_post_and_comment_reports(self):
+        users = {"u1": {"name": "홍길동"}}
+        reports = {"r": {"target": "u1", "reason": "spam", "source": "chat"}}   # 날짜 없는 이용자 신고는 제외 대상
+        posts = {"old": {"author": "u1", "title": "옛 글", "report": {"x": {"uid": "u2"}}},
+                 "dated": {"author": "u1", "title": "새 글", "report": {"x": {"uid": "u2", "date": NOW - DAY}}},
+                 "withComment": {"author": "u1", "title": "t", "comments": {"c": {"author": "u1", "content": "옛 댓글",
+                                                                              "report": {"x": {"uid": "u2"}}}}}}
+        inbox = m.build_inbox(reports, posts, users, set(), NOW)
+        refs = [i["ref"] for i in m.legacy_undated_items(inbox)]
+        self.assertEqual(sorted(refs), ["post/old", "post/withComment/comments/c"])
+        self.assertTrue(all(i["target_uid"] == "u1" for i in inbox if i["ref"] in refs))
+
+
 class PurgeTests(unittest.TestCase):
     def test_only_entries_older_than_retention_are_expired(self):
         entries = {"old": {"date": NOW - 91 * DAY}, "edge": {"date": NOW - 90 * DAY}, "new": {"date": NOW - DAY},

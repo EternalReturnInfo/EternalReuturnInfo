@@ -8,6 +8,7 @@
 하위 명령 (모두 --key, --db-url 이 필요하고, 바꾸는 명령은 --apply 가 있어야 실제로 실행돼요):
   inbox        처리하지 않은 신고를 급한 순서로 보여준다 (읽기 전용)
   resolve REF  신고 한 건을 처리하고 기록을 남긴다 (--action, --note 필요)
+  resolve-legacy  신고 시각이 없는 옛 글/댓글 신고를 한꺼번에 처리한다 (none 또는 delete-content)
   unsuspend    이용 제한(계정 사용 중지)을 푼다
   purge        3개월이 지난 이용자 신고와 처리 기록을 지운다
 
@@ -86,7 +87,8 @@ def build_inbox(user_reports: dict, posts: dict, users: dict, handled_refs: set,
             "ref": ref, "kind": "이용자 신고", "priority": priority, "age": age,
             "level": level_of(age, priority) if age is not None else "undated",
             "summary": f"{SOURCE_LABEL.get(r.get('source'), r.get('source'))} / {REASON_LABEL.get(r.get('reason'), r.get('reason'))}",
-            "target": display_name(users, r.get("target")), "context": r.get("context", ""),
+            "target": display_name(users, r.get("target")), "target_uid": r.get("target"),
+            "context": r.get("context", ""),
         })
     for pid, post in (posts or {}).items():
         if not isinstance(post, dict):
@@ -105,9 +107,15 @@ def build_inbox(user_reports: dict, posts: dict, users: dict, handled_refs: set,
                 "ref": ref, "kind": kind, "priority": False, "age": age,
                 "level": level_of(age, False) if age is not None else "undated",
                 "summary": f"신고 {len(reports)}건 / {snippet!r}",
-                "target": display_name(users, node.get("author")), "context": "",
+                "target": display_name(users, node.get("author")), "target_uid": node.get("author"),
+                "context": "",
             })
     return sorted(items, key=lambda i: (LEVEL_ORDER[i["level"]], -(i["age"] or 0)))
+
+
+def legacy_undated_items(items: list) -> list:
+    """접수함 항목 중 신고 시각이 없는 옛 글/댓글 신고 (이용자 신고는 항상 시각이 있으므로 해당 없음)"""
+    return [i for i in items if i["level"] == "undated" and i["ref"].startswith("post/")]
 
 
 def expired_entries(entries: dict, field: str, now_ms: int) -> list:
@@ -201,6 +209,31 @@ def cmd_resolve(args) -> None:
     print("처리 기록을 남겼어요")
 
 
+def cmd_resolve_legacy(args) -> None:
+    """신고 시각이 없는 옛 글/댓글 신고를 한꺼번에 처리한다 (기간을 셀 수 없어서 기한 관리가 안 되는 신고)."""
+    from firebase_admin import db
+    now_ms = int(time.time() * 1000)
+    inbox = build_inbox({}, db.reference("post").get(), db.reference("user").get(),
+                        handled_refs_from(db.reference("moderationLog").get()), now_ms)
+    items = legacy_undated_items(inbox)
+    verb = "글/댓글을 삭제하고 기록" if args.action == "delete-content" else "기록만 남김(내용은 유지)"
+    print(f"신고 시각이 없는 옛 신고: {len(items)}건 -> {verb}")
+    for i in items:
+        print(f"  {i['kind']} / {i['summary']} / 대상 {i['target']}")
+        print(f"      REF {i['ref']}")
+    if not items:
+        return
+    if not args.apply:
+        print("\n(dry-run) 위 목록을 확인하고, 맞으면 --apply 를 붙여 다시 실행하세요")
+        return
+    for i in items:
+        if args.action == "delete-content":
+            db.reference(i["ref"]).delete()
+        db.reference("moderationLog").push({"ref": i["ref"], "action": args.action, "note": args.note,
+                                            "target": i["target_uid"], "at": int(time.time() * 1000)})
+    print("처리하고 기록을 남겼어요")
+
+
 def cmd_unsuspend(args) -> None:
     from firebase_admin import auth, db
     print(f"이용 제한 해제 대상: {short(args.uid)} / 메모 {args.note!r}")
@@ -244,6 +277,12 @@ def main() -> None:
     p.add_argument("--note", required=True, help="처리 내용 메모 (개인정보는 적지 마세요)")
     p.add_argument("--apply", action="store_true")
     p.set_defaults(fn=cmd_resolve)
+
+    p = sub.add_parser("resolve-legacy", parents=[common], help="신고 시각이 없는 옛 글/댓글 신고를 한꺼번에 처리")
+    p.add_argument("--action", required=True, choices=("none", "delete-content"))
+    p.add_argument("--note", required=True)
+    p.add_argument("--apply", action="store_true")
+    p.set_defaults(fn=cmd_resolve_legacy)
 
     p = sub.add_parser("unsuspend", parents=[common], help="이용 제한 해제")
     p.add_argument("uid")
