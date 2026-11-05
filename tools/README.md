@@ -204,3 +204,55 @@ Realtime Database 의 `user/<uid>/email` 필드를 지워요. `user` 노드는 �
 ```
 
 끝나면 서비스 계정 키를 삭제하세요. 한 달에 한 번 정도 점검하면 돼요.
+
+
+## moderation.py (신고 접수함과 처리 기록)
+
+이용약관 7항의 약속(확인 3일, 위험이 큰 내용 2일, 결정 늦어도 1개월, 신고 내역 3개월 보관)을 지키기 위한 도구예요. 운영 절차는 Notion의 "신고 처리 운영 절차"를 따르세요. **확인(inbox)은 읽기 전용이고, 바꾸는 명령은 `--apply` 를 붙여야 실제로 실행돼요.** 같은 가상환경(`firebase-admin` 설치됨)과 서비스 계정 키(저장소 밖)를 써요. 작업이 끝나면 키는 다시 지우세요.
+
+```powershell
+$key = "C:\dev\secrets\<키>.json"
+$url = "https://eternalreturninfo-4dc4b-default-rtdb.firebaseio.com"
+```
+
+### 1. 접수함 (일주일에 두세 번, 최소 3일에 한 번)
+처리하지 않은 이용자 신고와 신고된 글/댓글을 급한 순서로 보여줘요. `[확인 기한 지남]`, `[결정 기한 지남]` 이 붙은 것부터 처리하세요. 위험이 큰 신고(미성년자 보호 위반, 성적인 내용)는 `[우선]` 이 붙고 2일 기한이에요.
+```powershell
+.\.venv\Scripts\python tools\moderation.py inbox --key $key --db-url $url
+```
+
+### 2. 한 건 처리하기
+먼저 `--apply` 없이 실행해서 무엇을 할지 확인하고, 맞으면 `--apply` 를 붙여요. `--note` 에는 처리 내용을 한 줄로 적어요(이름, 이메일 같은 개인정보는 적지 마세요).
+
+| 조치 `--action` | 하는 일 |
+| --- | --- |
+| `none` | 문제 없음으로 판단, 기록만 남김 |
+| `warn` | 경고(앱 밖에서 안내하거나 기록만), 기록만 남김 |
+| `delete-content` | 글/댓글 삭제 (REF 가 `post/...` 일 때만) |
+| `suspend` | 계정 사용 중지와 로그인 정보 만료 (REF 의 대상 사용자) |
+
+```powershell
+.\.venv\Scripts\python tools\moderation.py resolve "userReports/<id>" --action suspend --note "반복적인 욕설, 경고 후에도 재발" --key $key --db-url $url
+.\.venv\Scripts\python tools\moderation.py resolve "userReports/<id>" --action suspend --note "반복적인 욕설, 경고 후에도 재발" --key $key --db-url $url --apply
+```
+이용 제한한 사용자를 풀 때:
+```powershell
+.\.venv\Scripts\python tools\moderation.py unsuspend <uid> --note "이의 제기 수용" --key $key --db-url $url --apply
+```
+
+### 3. 정리 (한 달에 한 번)
+접수일로부터 90일이 지난 이용자 신고와 처리 기록을 지워요. 신고가 접수된 글/댓글 중 작성자가 탈퇴한 것은 `reports_review.py --delete-expired` 로 따로 정리해요.
+```powershell
+.\.venv\Scripts\python tools\moderation.py purge --key $key --db-url $url
+.\.venv\Scripts\python tools\moderation.py purge --key $key --db-url $url --apply
+```
+
+### 테스트
+핵심 계산(기한, 정렬, 정리 대상, REF 검증)은 Firebase 없이 확인해요.
+```powershell
+python tools\test_moderation.py
+```
+
+### 참고
+- 처리 기록은 `moderationLog` 에 남고, 앱에서는 읽을 수도 쓸 수도 없어요(서버 규칙에 정의되지 않은 경로).
+- 사용 중지한 계정이 이미 앱을 열어 둔 경우 최대 1시간 안에 로그아웃돼요.
